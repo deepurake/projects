@@ -1,0 +1,12 @@
+<h1>Editing userlogin</h1>
+
+<% form_for(@userlogin) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @userlogin %> |
+<%= link_to 'Back', userlogins_path %>

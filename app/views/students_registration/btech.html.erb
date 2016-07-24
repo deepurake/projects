@@ -1,0 +1,322 @@
+<%= render :partial => 'header' %>
+<% form_tag({ :controller=>"students_registration",  :action=>"create" }) do %>
+<% fields_for(@student) do |student| %>
+  <% fields_for(@student_data) do |student_data| %>
+    <% fields_for(@prog_data) do |prog_data| %>
+      <%= student.error_messages %>
+      <%= student_data.error_messages %>
+      <%= prog_data.error_messages %>
+  <div align="center">
+       
+        <strong><font size="4" color="red">Personal Information</font></strong>
+<font size="4" color="red">	</font><hr noshade="true" size="1%" width="60%" color="#000000">
+<font size="4" color="red">      </font>
+<table width="70%" border="0" cellspacing="10">
+      <tbody><tr>
+        <td width="27%">&nbsp;</td>
+        <td width="24%">&nbsp;</td>
+        <td width="27%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="24%"><b>Roll No</b></td>
+        <td width="27%">
+        <%= student.text_field :roll_no %>
+        </td><td></td>
+        <td width="24%"><strong>SPO Registration Number</strong></td>
+
+        <td width="27%"> (To be assigned by SPO)</td>
+      </tr>
+      <tr>
+     <td width="24%"><strong>Full Name</strong></td>
+	 <td width="27%">
+       <%= student.text_field :name %>
+     </td><td></td>
+	 <td width="24%"><strong>Father's Name</strong></td>
+        <td width="27%">
+          <%= student_data.text_field :father_name %>       </td>
+      </tr>
+      <tr>
+        <td width="24%"><strong>Sex</strong></td>
+        <td width="27%">
+          <%= student_data.select :gender,["Male","Female"] %>
+       </td><td></td>
+	<td width="24%"><strong>Date of Birth </strong>(YYYY-MM-DD)</td>
+        <td width="27%">
+          <%= student_data.text_field :bday,:value => "1986-01-26"  %>
+        </td>
+
+	</tr><tr>
+		<td width="22%"><strong>Category</strong></td>
+        <td width="27%">
+          <%= student_data.select :category,["GN","SC","ST","OBC","FN","PH"] %>
+       </td><td></td>
+        <td width="24%"><strong>AIR</strong></td>
+		<td width="27%">
+          <%= prog_data.text_field :entrance_rank   %>eg. 129
+        </td>
+       </tr>
+	    <tr>
+        <td width="22%"><strong>Email (IITK)</strong></td>
+
+        <td width="27%">
+          <%= student_data.text_field :iitk_email   %>@iitk.ac.in        </td><td></td>
+        <td width="24%"><strong>Email (External)</strong></td>
+        <td width="27%">
+          <%= student_data.text_field :alternate_email   %>      </td>
+      </tr>
+      <tr>
+        <td width="22%"><strong>Phone/Mobile No.<font color="blue"><sup>*</sup></font></strong></td>
+
+        <td width="27%">
+          <%= student_data.text_field :mobile_no   %>        
+        </td><td></td>
+        <td width="22%"><strong>Friend's Mobile No.<font color="blue"><sup>*</sup></font></strong></td>
+
+        <td width="27%">
+          <%= student_data.text_field :friend_mobile_no   %>        </td>
+          <tr>
+            <td width="24%"><strong>Phone No. (Res)</strong></td>
+            <td width="27%">
+              <%= student_data.text_field :residence_phone_no   %>      </td>
+          </tr>
+      </tr>
+	  <tr>
+        <td width="24%"><strong>Local (IITK) Address <font color="blue"><sup>*</sup></font></strong></td>
+
+        <td width="27%">
+          <%= student_data.text_area :iitk_address,:cols => 30,:rows => 3,:value=>"A-219, Hall-5"  %>
+       </td>
+       <td></td>
+        <td width="24%"><strong>Permanent address</strong></td>
+        <td width="27%">
+          <%= student_data.text_area :home_address,:cols => 30,:rows => 3  %></td>
+      </tr>
+	  <tr>
+        <td width="24%"><strong>Department</strong></td>
+
+        <td width="27%">
+          <% prog_id=Program.get_id(@prog) %>
+          <% dept_ids=DeptProg.get.depts_for_prog(prog_id) %>
+          <% depts=Department.get_fullnames(dept_ids) %>
+          <% dept_opts={} %>
+          <% depts.each_index do |i|
+                dept_opts[depts[i]]=dept_ids[i]
+             end
+          %>
+
+          <%= student.select :department_id, dept_opts.sort %>
+          <%= student.hidden_field :program_id, :value=>prog_id %>
+     </td></tr>
+      <tr>
+        <td width="24%"><strong>Current CPI </strong><font color="blue"><sup>*</sup></font></td>
+
+        <td width="27%">
+          <%= student_data.text_field :cpi %>   /10.0      </td><td></td>
+        <td width="24%"><strong>Expected Date of Graduation</strong></td>
+        <td width="27%">
+<select name="expected_grad_month"><option value="January">January</option>
+<option value="February">February</option>
+<option value="March">March</option>
+<option value="April">April</option>
+
+<option value="May">May</option>
+<option value="June" selected="selected">June</option>
+<option value="July">July</option>
+<option value="August">August</option>
+
+<option value="September">September</option>
+<option value="October">October</option>
+<option value="November">November</option>
+<option value="December">December</option>
+</select>
+<select name="expected_grad_year">
+<option value="2010" selected="selected">2010</option>
+<option value="2011">2011</option>
+<option value="2012">2012</option>
+
+</select>        </td>
+      </tr></tbody></table><font size="4" color="red"><br>
+		If you have no supervisers just write dugc/sugc and enter dugc/sugc@iitk.ac.in in email<sup>*</sup><br>
+    <table width="60%" border="0" cellspacing="10"><tbody><tr>
+        <td width="24%"><strong>Name of Project Supervisors <font color="blue"><sup>*</sup></font></strong></td>
+
+        <td width="27%">1.
+        <%= student_data.text_field :guide1_name %></td><td></td>
+        <td width="24%"><strong>Email : </strong><font color="blue"><sup>*</sup></font></td>
+        <td width="27%">
+          <%= student_data.text_field :guide1_email %>       </td>
+      </tr>
+      <tr>
+        <td width="24%"><strong>Fill only if you have second <font color="blue"><sup>*</sup></font></strong></td>
+        <td width="27%">2.
+          <%= student_data.text_field :guide2_name %>       </td><td></td>
+
+        <td width="24%"><strong>Email : </strong><font color="blue"><sup>*</sup></font></td>
+        <td width="27%">
+          <%= student_data.text_field :guide2_email %>         </td>
+      </tr>
+      </tbody></table>
+      <br>
+      <hr noshade="true" size="1%" width="60%" color="#000000">
+
+        <b><font size="4" color="red">ACADEMICS</font></b>
+      <hr noshade="true" size="1%" width="60%" color="#000000">
+      <table width="60%" border="0" cellspacing="10">
+      <tbody><tr>
+        <td width="27%">&nbsp;</td>
+        <td width="24%">&nbsp;</td>
+
+        <td width="27%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="24%"><b>High School(10th)</b></td>
+        <td width="27%">&nbsp;</td>
+        <td width="24%"><strong>Board</strong></td>
+        <td width="27%">
+            <%= student_data.select :board_10,["CBSE","ICSE","State Board","Other"] %>
+        </td>
+      </tr>
+      <tr>
+        <td width="24%"><strong>Pass Year</strong> </td>
+        <td width="27%">
+          <%= student_data.text_field :year_10 %>        </td>
+        <td width="24%"><strong>Percentage/CGPA/CPI</strong></td>
+        <td width="27%">
+          <%= student_data.text_field :marks_10 %>  %       </td>
+      </tr>
+      <tr>
+        <td width="24%"><b>Intermediate (12th)</b></td>
+        <td width="27%">&nbsp;</td>
+        <td width="24%"><strong>Board</strong></td>
+        <td width="27%">
+        <%= student_data.select :board_12,["CBSE","ISC","State Board","Diploma","Other"] %>
+          </td>
+      </tr>
+      <tr>
+        <td width="24%"><strong>PassYear</strong></td>
+        <td width="27%">
+          <%= student_data.text_field :year_12 %>         </td>
+        <td width="24%"><strong>Percentage/CGPA/CPI</strong></td>
+        <td width="27%">
+          <%= student_data.text_field :marks_12 %>  %     </td>
+      </tr>
+        <tr>
+        <td width="24%"><strong>Place of Summer Intern</strong> </td>
+        <td width="27%">
+          <%= prog_data.text_field :place_of_intern %>       </td>
+     <td width="24%"><strong>Did you get a Pre Placement Offer?</strong></td>
+        <td width="27%">
+          <%= prog_data.select :ppo,["Yes","No","Not Been Informed"] %>
+        </td>
+      </tr>
+
+	  <tr>
+        <td width="24%"><strong>Intern through SPO?</strong></td>
+        <td width="27%">
+          <%= prog_data.radio_button :spo_intern,"Yes",:checked => true %> Yes
+          <%= prog_data.radio_button :spo_intern,"No" %> No
+        </td>
+      </tr>
+
+    </tbody></table><br>
+      <%fields_for(@preferences) do |prefs|%>
+	  Please give your preference for the type of company you would like to get placed in:
+	  <table width="357">
+		<tbody>
+          <tr>
+          
+            <td width="50%"><strong>First Preference</strong></td>
+            <td width="50%">
+              <%= prefs.select :pref1,JobType::JobTypes.map{|job_type| [job_type.job_type,job_type.id]} %>
+            </td>
+          </tr>
+
+          <tr>
+
+            <td width="50%"><strong>Second Preference</strong></td>
+            <td width="50%">
+              <%= prefs.select :pref2,JobType::JobTypes.map{|job_type| [job_type.job_type,job_type.id]} %>
+            </td>
+          </tr>
+
+          <tr>
+
+            <td width="50%"><strong>Third Preference</strong></td>
+            <td width="50%">
+              <%= prefs.select :pref3,JobType::JobTypes.map{|job_type| [job_type.job_type,job_type.id]} %>
+            </td>
+          </tr>
+
+          <tr>
+
+            <td width="50%"><strong>Fourth Preference</strong></td>
+            <td width="50%">
+              <%= prefs.select :pref4,JobType::JobTypes.map{|job_type| [job_type.job_type,job_type.id]} %>
+            </td>
+          </tr>
+
+          <tr>
+
+            <td width="50%"><strong>Fifth Preference</strong></td>
+            <td width="50%">
+              <%= prefs.select :pref5,JobType::JobTypes.map{|job_type| [job_type.job_type,job_type.id]} %>
+            </td>
+          </tr>
+
+          <tr>
+
+            <td width="50%"><strong>Sixth Preference</strong></td>
+            <td width="50%">
+              <%= prefs.select :pref6,JobType::JobTypes.map{|job_type| [job_type.job_type,job_type.id]} %>
+            </td>
+          </tr>
+
+          <tr>
+
+            <td width="50%"><strong>Seventh Preference</strong></td>
+            <td width="50%">
+              <%= prefs.select :pref7,JobType::JobTypes.map{|job_type| [job_type.job_type,job_type.id]} %>
+            </td>
+          </tr>
+
+          <tr>
+
+            <td width="50%"><strong>Eighth Preference</strong></td>
+            <td width="50%">
+              <%= prefs.select :pref8,JobType::JobTypes.map{|job_type| [job_type.job_type,job_type.id]} %>
+            </td>
+          </tr>
+    </tbody></table>
+  </font></div>
+  <%end%>
+<font size="4" color="red">  </font><p align="center"><font size="4" color="red">
+<input name="program" value="btech" type="hidden">
+<u>Authentication Information :</u>
+<br><br>
+<%fields_for(@userlogin) do |userlogin| %>
+<strong>CC Login ID (also you PAS id)</strong>:
+<%= userlogin.text_field :login %>
+<br>
+<strong>CC Password</strong> :
+<input name="ccpassword" type="password">
+<br>
+<strong>Choose new PAS Password</strong> :
+<%= userlogin.password_field :password %>
+<br>
+<strong>Repeat Password</strong> :
+<%= userlogin.password_field :password_confirmation %>
+<%end%>
+<br><br>
+Click 'Finalize My Form' to submit your registration form.<br>
+<input type="submit" value="Submit"/>
+ </font></p>
+<%end%>
+<%end%>
+<%end%>
+<%end%>
+<font size="4" color="red">  </font><p align="center"><font size="4" color="red">
+If you have any problems when filling this form, please send an email to <a href="mailto:puneetp@iitk.ac.in?Subject=SPO%20Registration">puneetp@iitk.ac.in</a>, <a href="mailto:dilipkk@iitk.ac?Subject=SPO%20Registration">dilipkk@iitk.ac.in</a> or <a href="mailto:srakesh@iitk.ac?Subject=SPO%20Registration">srakesh@iitk.ac.in</a>with 'SPO Registration' in the subject.
+
+</font></p>
+</body>
+</html>

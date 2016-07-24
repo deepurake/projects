@@ -1,0 +1,47 @@
+%YAML 1.1
+---
+-
+  id: 2
+  login: zxc
+  crypted_password: baeb5a380af77ffa614dcdb56dc9988631869dca65c6476745bfd82717cb5e602111c5dc85f1db275ca6ddbc91831ac8da65156e827131d737772ac86060271c
+  loginable_id: 2
+  loginable_type: Company
+  password_salt: TP6GzFlsv74Hi4sC18_6
+  persistence_token: 608fa563036ad8ef1386e476896d0503cefa72e88cd38a7254a00ecd441ac0ab7b765c6c9cbd8ffeb5ed8be5176ed3f7ce64cb634cb8fa48ee1f01a767cd5d05
+  last_request_at: 2009-07-01 15:14:57
+  last_login_at: 2009-07-01 15:14:57
+  last_login_ip: 127.0.0.1
+-
+  id: 3
+  login: abc
+  crypted_password: 794fb9a8494162bff7d5a7209d5c48f1a9f6a3c14ac99a14a4c3be6f12baf67fae08fbbcdaff0f26935d999a699398a7a1555514086510545622999e87ca6fb0
+  loginable_id: 4
+  loginable_type: Company
+  password_salt: gKRec9myiEFQ8dHi4KSg
+  persistence_token: 7a5935f61f08ad6afa37718c4cf1f19d334de07f4a4f4e3daf46f61c4919bb768d7f33310a303f751bec51bfaeec198482fab663f85a65941b3c58a5b56ee5e6
+  last_request_at: 2009-07-15 04:11:11
+  last_login_at: 2009-07-01 15:47:09
+  last_login_ip: 127.0.0.1
+-
+  id: 4
+  login: admin
+  crypted_password: 462e44ec47d651a91831708bd0c9f47961e8bb20522f5943bb27af18f87b46818034314856502e0271e3fa6ea868e0a0b6c06e05ae43add743c69a062222d37d
+  loginable_id: 1
+  loginable_type: Admin
+  password_salt: lXwluPnIEJKiF5W24220
+  persistence_token: 6bb2cf6c14f2acfa9e8009a9d5a21f8d4fdc6a6f1f59820a31e6a836b37589d8deed63e7ad2ccc05a1e65bfa7e6dc3b49f02d0f2eaa53f648fb07d24926bd8db
+  last_request_at: 2009-07-12 03:57:56
+  last_login_at: 2009-07-05 17:17:22
+  last_login_ip: 127.0.0.1
+-
+  id: 5
+  login: admin2
+  crypted_password: 155cae923ec07f4976ef4bfac3177d474a0c678161bfafb2123ae3579d0e20788bb8bc95b888821c99fcf9ff7c04e459bca19b471e7875e4948f3167338dd754
+  loginable_id: 4
+  loginable_type: Admin
+  password_salt: ZDeh2Vcwr0Jf21O130_Y
+  persistence_token: 101c7c95122ee68263d20798eaf055bf4ae5a165a640b3edb42c1f341eab99c30b9f9adc9a491543aebdfc6bfc57a3be8e44adf72e95f57dcad28cd022efc9b9
+  last_request_at: 2009-07-06 09:25:16
+  last_login_at: 2009-07-06 05:25:16
+  last_login_ip: 127.0.0.1
+...

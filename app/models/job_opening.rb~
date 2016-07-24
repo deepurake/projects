@@ -1,0 +1,10 @@
+# Gaurav (gauravbg AT iitk DOT ac DOT in) - June 2009
+class JobOpening < ActiveRecord::Base
+  belongs_to :company
+  
+  has_many :job_applications
+  has_many :students, :through => :job_applications
+  
+  serialize :eligibilty, Pdc
+    
+end

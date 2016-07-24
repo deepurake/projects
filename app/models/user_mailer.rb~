@@ -1,0 +1,15 @@
+require 'action_mailer'
+
+class UserMailer < ActionMailer::Base
+  
+   def company_mail(recipient, subject, message, sent_at= Time.now , sender)
+      @subject = subject
+      @recipients = recipient
+      @from = sender
+      @sent_on = sent_at
+	  @body["title"] = 'This is title'
+  	  @body["email"] = 'sender@yourdomain.com'
+   	  @body["message"] = message
+      @headers = {}
+   end
+end

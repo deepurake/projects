@@ -1,0 +1,3 @@
+class AttachmentApplicationForm < Attachment
+end
+

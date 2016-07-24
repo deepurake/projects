@@ -1,0 +1,41 @@
+# Gaurav (gauravbg AT iitk DOT ac DOT in) - June 2009
+class CreateJobOpenings < ActiveRecord::Migration
+  def self.up
+    create_table :job_openings do |t|
+      t.integer :company_id,:null => false
+      
+      t.string  :designation,:null => false
+      t.string  :description,:null => false
+      t.string  :package_bt,:null => false
+      t.string  :package_mt,:null => false
+      t.string  :package_dual,:null => false
+      t.string  :package_msci,:null => false
+      t.string  :package_msc2,:null => false
+      t.string  :package_mba,:null => false
+      t.string  :package_mdes,:null => false
+      t.string  :package_details,:null => false
+      t.boolean :bond,:null => false
+      t.string  :bond_details,:null => false
+      t.boolean :resume_shortlist,:null => false
+      t.boolean :aptitude,:null => false
+      t.boolean :gd,:null => false
+      t.boolean :hr_interview,:null => false
+      t.string  :contact_person,:null => false
+      t.string  :contact_address,:null => false
+      t.string  :contact_telephone,:null => false
+      t.string  :contact_mobile_no,:null => false
+      t.string  :contact_email,:null => false
+      
+      t.boolean :published,:null => false     # set by admin
+      t.string  :application_deadline,:null => false
+      
+      t.text    :eligibility,:null => false
+      
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :job_openings
+  end
+end

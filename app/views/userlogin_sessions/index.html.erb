@@ -1,0 +1,6 @@
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+<% @user = current_user %>
+<h1>Welcome! <%=h  @user.login %> is logged in.dasd</h1>
+

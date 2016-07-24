@@ -1,0 +1,21 @@
+# Gaurav (gauravbg AT iitk DOT ac DOT in) - June 2009
+class CreateStudents < ActiveRecord::Migration
+  def self.up
+    create_table :students do |t|
+
+      t.integer :department_id
+      t.integer :program_id
+      
+      
+      t.string :roll_no
+      t.string :name
+      
+      
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :students
+  end
+end

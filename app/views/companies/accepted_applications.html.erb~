@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+	<head>
+	
+		<link rel="stylesheet" href="/media/css/demos.css" type="text/css" title='currentStyle' /><!--nofunction-->
+		<script type="text/javascript" language="javascript" src="/media/js/jquery.js"></script>
+		<script type="text/javascript" language="javascript" src="/media/js/jquery.dataTables.js"></script>
+		
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').dataTable( {
+					"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+						/* Append the grade to the default row class name */
+						if ( aData[4] == "A" )
+						{
+							$('td:eq(4)', nRow).html( '<b>A</b>' );
+						}
+						return nRow;
+					},
+					"aoColumns": [ 
+						/* Engine */   null,
+						/* Browser */  null,
+						/* Platform */ null,
+						/* Version */  { "sClass": "center" },
+						/* Grade */    { "sClass": "center" },
+						{ "sClass": "center" },
+						/* Grade */    { "sClass": "center" }
+					]
+				} );
+			} );
+		</script>
+	</head>
+	
+	<body id="dt_example">
+		<div id="container">
+			<div id="demo">
+				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+					<thead>
+						<tr>
+							<th>Opening</th>
+							<th style="width:200px">Name of the student</th>
+							<th style="width:120px">Department</th>
+							<th>Degree</th>
+							<th style="width:150px">Student resume</th>
+							<th>Shortlist</th>
+							<th>Reject</th>
+						</tr>
+					</thead>
+					<tbody>
+					<% @accepted_applications.each do |accepted_applications|%>
+						<tr class="gradeB">
+							<td>Trident</td>
+							<td>Internet
+								 Explorer 4.0</td>
+							<td>Win 95+</td>
+							<td class="center">4</td>
+							<td class="center">Xsd</td>
+							<td class="center">Xsd</td>
+							<td class="center"><%=h accepted_applications%></td>
+						</tr>
+					<%end%>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Rendering engine</th>
+							<th>Browser</th>
+							<th>Platform(s)</th>
+							<th>Engine version</th>
+							<th>CSS grade</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</body>
+	
+</html>

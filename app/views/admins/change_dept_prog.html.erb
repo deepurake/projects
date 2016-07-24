@@ -1,0 +1,59 @@
+<script type="text/javascript">
+jQuery(function($){
+  $('.uncheckall').click(function(){
+    $("." + this.id.substring(0, this.id.indexOf("_"))).attr("checked",false);
+  });
+
+  $('.checkall').click(function(){
+    $("." + this.id.substring(0, this.id.indexOf("_"))).attr("checked",true);
+  });
+});
+</script>
+<% form_tag({ :controller=>"admins",  :action=>"change_dept_prog"}, :id=>"dept_prog") do %>
+<div id='dept_prog'>
+<table width="100%" border="0" cellspacing="5" style="text-align:center" id="elig_table">
+
+<tr><td></td>
+<%
+  pdc=@dept_prog.dept_prog
+  dept_fullnames=Department::DepartmentFullNames
+  prog_fullnames=Program::ProgramFullNames
+  prog_names=Program::ProgramNames
+  num_progs=prog_names.length
+  prog_ids=Program::ProgramIDs
+  dept_names=Department::DepartmentNames
+  num_depts=dept_names.length
+  dept_ids=Department::DepartmentIDs
+  prog_fullnames.each do |prog_fullname|
+%>
+    <td><strong><%=  prog_fullname %></strong></td>
+<%
+  end
+%>
+  </tr>
+  <tr><td></td>
+<%
+  prog_names.each do |prog_name|
+%>
+    <%="<td><a class='checkall' href='#' id='#{prog_name}_checkall'>Check all</a><br/><a class='uncheckall' href='#' id='#{prog_name}_uncheckall'>Uncheck all</a></td>"%>
+  <%end%>
+  </tr>
+  <tr>
+  <%for d in 0..num_depts-1%>
+    <%="<td style='text-align:left'><strong>#{dept_fullnames[d]}</strong></td>"%>
+<%
+    for p in 0..num_progs-1
+      if pdc.contains?(prog_ids[p],dept_ids[d])
+%>
+      <%=  "<td><input type='checkbox' name='#{dept_names[d]}[]'  class='#{prog_names[p]}' value='#{prog_ids[p]}' checked></td>"%>
+      <%else%>
+      <%=  "<td><input type='checkbox' name='#{dept_names[d]}[]'  class='#{prog_names[p]}' value='#{prog_ids[p]}'></td>"%>
+      <%end%>
+    <%end%>
+</tr>
+  <%end%>
+</table>
+</div>
+<br/>
+<input type="submit" value="Submit">
+<%end%>

@@ -1,0 +1,356 @@
+ <!--for freedom button-->
+<script type="text/javascript" src="/navigation/jquery.idTabs.min.js"></script>
+<script type="text/javascript">
+<% num_openings = @openings.length %>
+$(document).ready(function() {
+<% if num_openings > 1 %>
+  <% for num_profile in 1..num_openings%>
+	    <%= "$('#profile_tabs#{num_profile}').tabs();" %>
+  <%end%>
+<% elsif num_openings == 1 %>
+  $('#tabs').tabs();
+<%end%>
+});
+
+//var $tabs= $("#tabs").tabs();
+
+
+</script>
+<br/><br/>
+	<% if num_openings> 1 %>
+		<table width="70%">
+			<tr >
+				<td  width="40%" style="vertical-align:top">
+				  		<div id ="profile_navigation">
+				  		<h3>Job Openings</h3>
+						  <ul id="view_profiles" class="idTabs">
+						      <li class="profile_each"><a class="selected_profile" href="#profile1" >Profile1</a></li>
+							  <% for num_profile in 2..num_openings%>
+								  <li class="profile_each"><%= link_to "Profile#{num_profile}", "#profile#{num_profile}" %></li>
+							  <%end%>
+							  <!--profile_each is introduced because of clash with companies layout styles-->
+						  </ul>
+					  </div>
+				</td>
+
+				<td >
+					<div id="view_profile" >
+						<% num_profile = 0 %>
+						<% @openings.each do |opening| %>
+							<% num_profile+=1 %>
+							<%= "<div id='profile#{num_profile}'>" %>
+							<%= "<div id='profile_tabs#{num_profile}'>" %>
+									<ul>
+										<%= "<li id='profile#{num_profile}tab1'><a href='#profile#{num_profile}tabs-1'>Job Profile</a></li>" %>
+										<%= "<li id='profile#{num_profile}tab2'><a href='#profile#{num_profile}tabs-2'>Eligibility</a></li>" %>
+										<%= "<li id='profile#{num_profile}tab3'><a href='#profile#{num_profile}tabs-3'>Remuneration</a></li>" %>
+										<%= "<li id='profile#{num_profile}tab4'><a href='#profile#{num_profile}tabs-4'>Selection process</a></li>" %>
+										<%= "<li id='profile#{num_profile}tab5'><a href='#profile#{num_profile}tabs-5'>Contact Information</a></li>" %>
+									</ul>
+                  <%= "<div id='profile#{num_profile}tabs-1' align='center'>" %>
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h opening.nature %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.nature %></td>
+											 </tr>
+										 </table>
+									</div>
+
+									<%= "<div id='profile#{num_profile}tabs-2' align='center'>" %>
+										 <table width="50%" border="0" cellspacing="10" >
+										 	<h2>The departments to be recuited are from the following programmes</h2>
+											<tr>
+											<td width="6%"><strong>Eligibility</strong></td>
+											<td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h opening.eligibility.to_s %></td>
+											 </tr>
+										 </table>
+									</div>
+
+									<%= "<div id='profile#{num_profile}tabs-3' align='center'>" %>
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h opening.nature %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.nature %></td>
+											 </tr>
+										 </table>
+									</div>
+
+									<%= "<div id='profile#{num_profile}tabs-4' align='center'>" %>
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h opening.nature %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.nature %></td>
+											 </tr>
+										 </table>
+									</div>
+
+									<%= "<div id='profile#{num_profile}tabs-5' align='center'>" %>
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h opening.nature %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.nature %></td>
+											 </tr>
+										 </table>
+									</div>
+								</div>
+			  				</div>
+						<% end %>
+				  </div>
+				</td>
+
+			</tr>
+		</table>
+	<% elsif num_openings== 1 %>
+		<% opening=@openings[0] %>
+		<div id="tabs">
+
+		<ul>
+			<li id="tab1"><a href="#tabs-1">Job Profile</a></li>
+			<li id="tab2"><a href="#tabs-2">Eligibility</a></li>
+			<li id="tab3"><a href="#tabs-3">Remuneration</a></li>
+			<li id="tab4"><a href="#tabs-4">Selection process</a></li>
+			<li id="tab5"><a href="#tabs-5">Contact Information</a></li>
+		</ul>
+
+		<div id="tabs-1" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+				   <tr>
+				   <td width="6%"><strong>Nature of Business</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h opening.nature %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Designation</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h opening.designation %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Description</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h opening.nature %></td>
+				 </tr>
+			 </table>
+		</div>
+
+		<div id="tabs-2" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+										 	<h2>The departments to be recuited are from the following programmes</h2>
+											<tr>
+											<td width="6%"><strong>Eligibility</strong></td>
+											<td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h opening.eligibility.to_s %></td>
+											 </tr>
+			 </table>
+		</div>
+
+		<div id="tabs-3" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+				  <% if opening.package_bt %>
+					<tr>
+						<td width="6%"><strong>Btech Package </strong></td>
+						<td width="2%"><strong>:</strong></td>
+						<td width="5%">
+							<%=h opening.package_bt %>
+						</td>
+					</tr>
+				 <%end%>
+				 <% if opening.package_mt %>
+				 	<tr>
+						<td width="6%"><strong>Mtech Package</strong></td>
+						<td width="2%"><strong>:</strong></td>
+						<td width="5%">
+							<%=h opening.package_mt %>
+						</td>
+					</tr>
+				<%end%>
+				 <% if opening.package_dual %>
+					<tr>
+						<td width="6%"><strong>Dual Package</strong></td>
+						<td width="2%"><strong>:</strong></td>
+						<td width="5%">
+							<%=h opening.package_dual %>
+						</td>
+					</tr>
+				<%end%>
+				 <% if opening.package_mba %>
+					<tr>
+						<td width="6%"><strong>MBA Package</strong></td>
+						<td width="2%"><strong>:</strong></td>
+						<td width="5%">
+							<%=h opening.package_mba %>
+						</td>
+					</tr>
+				<%end%>
+				 <% if opening.package_msci %>
+					<tr>
+						<td width="6%"><strong>MSC Integrated Package</strong></td>
+						<td width="2%"><strong>:</strong></td>
+						<td width="5%">
+							<%=h opening.package_msci %>
+						</td>
+					</tr>
+				<%end%>
+				 <% if opening.package_msc2 %>
+					<tr>
+						<td width="6%"><strong>MSC 2yr Package</strong></td>
+						<td width="2%"><strong>:</strong></td>
+						<td width="5%">
+							<%=h opening.package_msc2 %>
+						</td>
+					</tr>
+				<%end%>
+				 <% if opening.package_phd %>
+					<tr>
+						<td width="6%"><strong>PHD Package</strong></td>
+						<td width="2%"><strong>:</strong></td>
+						<td width="5%">
+							<%=h opening.package_phd %>
+						</td>
+					</tr>
+				<%end%>
+				 <% if opening.package_mdes %>
+					<tr>
+						<td width="6%"><strong>M.Des Package</strong></td>
+						<td width="2%"><strong>:</strong></td>
+						<td width="5%">
+							<%=h opening.package_mdes %>
+						</td>
+					</tr>
+				<%end%>
+			 </table>
+		</div>
+
+		<div id="tabs-4" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+				<tr>
+					<td width="6%"><strong>Short list from Resumes</strong></td>
+					<td width="2%"><strong>:</strong></td>
+					<td width="5%">
+						<% if opening.resume_shortlist %>
+						yes
+						<%else%>
+						no
+						<%end%>
+					</td>
+				</tr>
+				<% if opening.resume_shortlist %>
+					<tr>
+						<td width="6%"><strong>Short list from Resumes</strong></td>
+						<td width="2%"><strong>:</strong></td>
+						<td width="5%">
+							<%= opening.resume_criteria %>
+						</td>
+					</tr>
+				<%end%>
+				<tr>
+					<td width="6%"><strong>A</strong></td>
+					<td width="2%"><strong>:</strong></td>
+					<td width="5%">
+						<% if opening.resume_shortlist %>
+						yes
+						<%else%>
+						no
+						<%end%>
+					</td>
+				</tr>
+			 </table>
+		</div>
+
+		<div id="tabs-5" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+				   <tr>
+				   <td width="6%"><strong>Contact Person</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h opening.contact_name %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Contact Designation</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h opening.contact_designation %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Address</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h opening.contact_address %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Telephone number</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h opening.contact_telephone %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Fax number</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h opening.contact_fax %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Cell no</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h opening.contact_mobile %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Email</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 	<td width="5%">
+					<%=h opening.contact_email %></td>
+				 </tr>
+			 </table>
+		</div>
+	<% end %>
+

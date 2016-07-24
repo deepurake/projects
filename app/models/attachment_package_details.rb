@@ -1,0 +1,3 @@
+class AttachmentPackageDetails < Attachment
+end
+

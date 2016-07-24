@@ -1,0 +1,435 @@
+<!--script type="text/javascript" src="/javascripts/jquery.form.js"-->
+<%
+  pdc=DeptProg.get
+  dept_fullnames=Department::DepartmentFullNames
+  prog_fullnames=Program::ProgramFullNames
+  prog_names=Program::ProgramNames
+  num_progs=prog_names.length
+  prog_ids=Program::ProgramIDs
+  dept_names=Department::DepartmentNames
+  num_depts=dept_names.length
+  dept_ids=Department::DepartmentIDs
+ %>
+<script type="text/javascript" src="/javascripts/company/add_opening.js"></script>
+<% if @opening %>
+  <div class="notice"><% @opening.errors.each do |attr,msg| %>
+    <h5 style="color:red"><%=h attr+" "+msg %></h5>
+    <% end %>
+  </div>
+<% end %>
+<% form_tag({ :controller=>"companies",  :action=>"create" },{:multipart => true, :id=>"job_opening"}) do %>
+<div id="tabs">
+	<ul>
+		<li><a id="tab1" href="#job_profile"><strong>Job Profile</strong></a></li>
+		<li><a id="tab2" href="#eligibility"><strong>Eligibility</strong></a></li>
+		<li><a id="tab3" href="#package"><strong>Remuneration (Package)</strong></a></li>
+		<li><a id="tab4" href="#selection"><strong>Selection Process</strong></a></li>
+		<li><a id="tab5" href="#contact"><strong>Contact Information</strong></a></li>
+		<li><a id="tab6" href="#submission"><strong>Finalise Opening</strong></a></li>
+	</ul>
+
+	<div id="job_profile" align="center">
+    <table width="65%" border="0" cellspacing="10">
+         <tr><td><font face="Arial"><h4>Please note :</h4></font></td></tr>
+         <tr>
+           <td><font face="Verdana" size="2">
+             <ul>
+                <li>Fields with * mark are compulsory.</li>
+              </ul>
+            </font></td>
+        <tr>
+    </table>
+    <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs1" align="left">
+    </div>
+	 <table width="65%" border="0" cellspacing="10" >
+	 <tr>
+     <td width="8%"><strong>Name of the Company</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="8%"><%=h @user.name %></td>
+	 </tr>
+     <tr>
+     <td width="8%"><strong>Nature of Business *</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="8%"><textarea name='opening[nature]' id = "company_business" rows="4" cols="60" wrap="hard"></textarea></td>
+	 </tr>
+	 <tr>
+     <td width="8%"><strong>Job Designation *</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="8%"><textarea name='opening[designation]' id= "designation" rows="4" cols="60" wrap="hard"></textarea></td>
+	 </tr>
+	 <tr>
+     <td width="8%"><strong>Job Description *</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="8%"><textarea name='opening[description]' id= "designation" rows="4" cols="60" wrap="hard"></textarea></td>
+	 </tr>
+     </table>
+    <div>
+      <input class="continue_next" type="button" value="Continue"/>
+    </div>
+	</div>
+
+	<div id="eligibility" align="center" class="eligibility">
+<table width="100%" border="0" cellspacing="0">
+         <tr><td><font face="Arial"><h4>Please note :</h4></font></td></tr>
+         <tr>
+           <td><font face="Verdana" size="2">
+             <ul>
+                <li>Please checkall atleast one field.</li>
+              </ul>
+            </font></td>
+        <tr>
+    </table>
+    <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs2" align="left">
+    </div>
+<table width="100%" border="0" cellspacing="0" style="text-align:center" id="eligibility_table">
+
+<tr><td></td>
+<%
+  prog_fullnames.each do |prog_fullname|
+%>
+    <td><strong><%=  prog_fullname %></strong></td>
+<%
+  end
+%>
+  </tr>
+  <tr><td></td>
+<%
+  prog_names.each do |prog_name|
+%>
+    <%="<td><a class='checkall' href='#' id='#{prog_name}_checkall'>Check all</a><br/><a class='uncheckall' href='#' id='#{prog_name}_uncheckall'>Uncheck all</a></td>"%>
+  <%end%>
+  </tr>
+  <tr>
+  <%for d in 0..num_depts-1%>
+    <%="<td style='text-align:left'><strong>#{dept_fullnames[d]}</strong></td>"%>
+<%
+    for p in 0..num_progs-1
+      if pdc.contains?(prog_ids[p],dept_ids[d])
+%>
+        <%=  "<td><input type='checkbox' name='eligibility[#{dept_names[d]}][]'  class='#{prog_names[p]}' value='#{prog_ids[p]}'></td>"%>
+      <%else%>
+        <td></td>
+      <%end%>
+    <%end%>
+</tr>
+  <%end%>
+</table>
+    <div>
+      <input id="button2" type="button" value="Continue"/>
+    </div>
+
+	</div>
+
+
+	<div id="package" align="center">
+<table width="90%" border="0" cellspacing="10">
+     <tr><td><font face="Arial"><h4>Please note :</h4></font></td></tr>
+     <tr>
+       <td><font face="Verdana" size="2">
+         <ul>
+            <li>Please fill in all the fields relevant as per the eligibility criterion specified.</li>
+            <li>Performance based bonus should be declared independently and not as part of Gross/CTC.</li>
+            <li>Any amount to be disbursed later than the end of first 12 months should not be a part of Gross/CTC but can be mentioned separately.</li>
+          </ul>
+        </font></td>
+    <tr>
+</table>
+<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs3" align="left">
+</div>
+    <div id="packages">
+    <table width="90%" border="0" cellspacing="10">
+        <tr><td width="5%"></td><td width="5%"><strong>Gross Salary</strong></td><td width="5%"><strong>Total cost to Company</strong></td><td width="5%"><strong>Perks/Additional Information</strong></td></tr>
+	     <%for p in 0..num_progs-1%>
+         <%=  "<tr id='package_#{prog_names[p]}'><td><strong>#{prog_fullnames[p]}</strong></td><td><input type='text' name='opening[package_#{prog_names[p]}][]' id='#{prog_names[p]}_gross' ></td><td><input type='text' name='opening[package_#{prog_names[p]}][]'></td><td><input type='text'  name='opening[package_#{prog_names[p]}][]'></td></tr>" %>
+         <%end%>
+    </table>
+    </div>
+	 <table width="90%" style="table-layout:fixed;" border="0" cellspacing="10">
+	  <tr><td width="45%"><strong>Package Details (If any )</strong></td><td><textarea name="opening[package_details]" id= "package_details" rows="4" cols="55" wrap="hard"></textarea><br/><input type="file" name="packages_attachment" id="packages_attachment" accept="doc|pdf|docx"/>(If there is any attachment)</td></tr>
+     <tr>
+	 <td><strong>Is there a service bond/contract?</strong></td>
+     <td>
+      <input type="radio" name="opening[bond]" id="bond_yes" value="1" checked><label for="bond_yes"> YES </label>&nbsp;&nbsp;
+      <input type="radio" name="opening[bond]" id="bond_no" value="0"><label for="bond_no"> NO </label>
+    </td>
+	 </tr>
+     <tr>
+     <td><strong>If yes, what will be the duration, amount and stipulated conditions?</strong></td>
+     <td><textarea name="opening[bond_details]" id= "bond_details" rows="4" cols="55" wrap="hard"></textarea></td>
+	 </tr>
+	  <tr>
+	      <td><strong>Medical Requirements</strong></td>
+        <td><textarea name = "opening[medical_requirements]" id = "medical_requirements" rows="4" cols="55" wrap="hard"></textarea></td>
+    </tr>
+	</table>
+	<div>
+      <input class="continue_next" type="button" value="Continue"/>
+  </div>
+	</div>
+
+
+
+	<div id="selection" align="center">
+	<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs4" align="left">
+    </div>
+  <table width="75%" border="0" cellspacing="10">
+  <tr>
+	 <td width="10%"><strong>Shortlist from Resumes</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="opening[resume_shortlist]" id="shortlist_yes" value="1" checked><label for="shortlist_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <input type="radio" name="opening[resume_shortlist]" id="shortlist_no" value="0"><label for="shortlist_no"> NO </label></td>
+	 </tr>
+	 <tr>
+     <td width="10%"><strong>If Yes, Specify Criteria</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="10%"><textarea name="opening[resume_criteria]" id= "resume_criteria" rows="4" cols="40" wrap="hard"></textarea></td>
+	 </tr>
+	 <tr>
+	 <td width="10%"><strong>Aptitude Test</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="opening[aptitude]" id="aptitude_yes" value="1" checked><label for="aptitude_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="opening[aptitude]" id="aptitude_no" value="0"><label for="aptitude_no"> NO </label></td>
+	 </tr>
+	 <tr>
+	 <td width="10%"><strong>Technical Test</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="opening[tech_test]" id="tech_test_yes" value="1" checked><label for="tech_test_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <input type="radio" name="opening[tech_test]" id="tech_test_no" value="0"><label for="tech_test_no"> NO </label></td>
+	 </tr>
+	 <tr>
+	 <td width="10%"><strong>Group Discussion</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="opening[gd]" id="gd_yes" value="1" checked><label for="gd_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="radio" name="opening[gd]" id="gd_no" value="0"><label for="gd_no"> NO </label></td>
+	 </tr>
+	 <tr>
+	 <td width="10%"><strong>Technical Interview</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="opening[tech_interview]" id="tech_interview_yes" value="1" checked><label for="tech_interview_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="opening[tech_interview]" id="tech_interview_no" value="0"><label for="tech_interview_no"> NO </label></td>
+	 </tr>
+	 <tr>
+     <td width="10%"><strong>Number of Rounds</strong></td>
+     <td width="2%"><strong>:</strong></td>
+<td width="5%">
+<select name="opening[no_rounds]">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+</select>
+</td>
+	 </tr>
+	 <tr>
+	 <td width="10%"><strong>HR Interview</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="opening[hr_interview]" id="hr_interview_yes" value="1" checked><label for="hr_interview_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="opening[hr_interview]" id="hr_interview_no" value="0"><label for="hr_interview_no"> NO </label></td>
+	 </tr>
+     <tr>
+     <td width="10%"><strong>If you want to upload any Job application form</strong></td>
+     <td width="2%"><strong>:</strong></td>
+     <td width="5%"><input type="file" name="application_form" id="application_form" accept="doc|pdf|docx"/></td>
+	</tr>
+    </table>
+	<div>
+      <input class="continue_next" type="button" value="Continue"/>
+    </div>
+	</div>
+
+
+	<div id="contact" align="center">
+	<table width="50%" border="0" cellspacing="10">
+     <tr><td><font face="Arial"><h4>Please note :</h4></font></td></tr>
+     <tr>
+       <td><font face="Verdana" size="2">
+         <ul>
+            <li>Please fill in all the fields below.</li>
+          </ul>
+        </font></td>
+    <tr>
+</table>
+<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs5" align="left">
+</div>
+<div id="contact_details1">
+	<table width="50%" border="0" cellspacing="10">
+     <tr>
+     <td width="6%"><strong>Contact Person</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details1][name]" class="person"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Designation</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details1][designation]" class="design"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Address</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details1][address]" class="address"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>City</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details1][city]" class="address"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>PIN</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details1][pin]" class="pin"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Telephone No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" size="6" name="opening[contact_details1][telephone][0]" class="tel"><input type="text" size="12" name="opening[contact_details1][telephone][1]" class="tel"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>FAX No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details1][fax]" class="fax"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Cell No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details1][mobile]" class="cell"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Email</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details1][email]" class="email"></td>
+	 </tr>
+	 <tr><td width="6%"><strong>Will you be interseted to take students for summer internship?</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="opening[intern]" id="intern_yes" value="1" checked><label for="intern_yes"> YES </label>&nbsp;&nbsp;
+     <input type="radio" name="opening[intern]" id="intern_no" value="0"><label for="intern_no"> NO </label></td>
+	 </tr>
+</table>
+</div>
+
+<div id="contact_details2" style="display:none">
+	<table width="50%" border="0" cellspacing="10">
+	   <tr><td colspan='3'><h4>More Contacts</h4></td></tr>
+     <tr>
+     <td width="6%"><strong>Contact Person</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details2][name]" class="person"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Designation</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details2][designation]" class="design"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Address</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details2][address]" class="address"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>City</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details2][city]" class="address"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>PIN</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details2][pin]" class="pin"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Telephone No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details2][telephone]" class="tel"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>FAX No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details2][fax]" class="fax"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Cell No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details2][mobile]" class="cell"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Email</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details2][email]" class="email"></td>
+	 </tr>
+</table>
+</div>
+
+<div id="contact_details3" style="display:none">
+	<table width="50%" border="0" cellspacing="10">
+	   <tr><td colspan='3'><h4>More Contacts</h4></td></tr>
+     <tr>
+     <td width="6%"><strong>Contact Person</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details3][name]" class="person"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Designation</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details3][designation]" class="design"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Address</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details3][address]" class="address"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>City</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details3][city]" class="address"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>PIN</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details3][pin]" class="pin"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Telephone No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details3][telephone]" class="tel"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>FAX No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details3][fax]" class="fax"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Cell No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details3][mobile]" class="cell"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Email</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="opening[contact_details3][email]" class="email"></td>
+	 </tr>
+</table>
+</div>
+
+    <div align="center">
+      <input id="more_contacts" type="button" value="Add More Contacts"/>
+      <input id="less_contacts" type="button" value="Remove Some Contacts" disabled/><br/><br/>
+    </div>
+    <div>
+      <input class="continue_next" type="button" value="Continue"/>
+    </div>
+</div>
+
+	<div id="submission">
+      <div id="filled_form" style="display:none">
+        <%= render :partial => 'filled_details' %>
+	  </div>
+      <input type="button" value="Print" id="print_form"/>
+      <input type="button" id="submitform"  value="Submit"/>
+    </div>
+</div>
+<% end %>
+

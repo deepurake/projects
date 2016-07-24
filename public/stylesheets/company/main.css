@@ -1,0 +1,46 @@
+#view_profiles {
+  width:90px;
+  color:#68D;
+  font:1.3em Cambria, Times New Roman, serif;
+  float:left;
+  list-style:none;
+}
+#view_profiles li{
+}
+#view_profiles li a {
+  width:80px;
+  text-align:left;
+  padding:2px 6px 4px;
+  background-image:url('blue.png');
+  margin:1px;
+  display:block;
+  text-decoration:none;
+  text-align:right;
+  color:white
+  font-weight:bold;
+  font-size:1.0em;
+  font-style:normal;
+  border:0px;
+}
+#view_profiles li a:hover {
+  background-image:url('green.png');
+  width:88px;
+}
+#view_profiles li a.selected_profile {
+  background-image:url('gray.png');
+  cursor:default;
+}
+
+#view_profile {
+  width:702px;
+  padding-top:2px;
+  border:0px solid #222;
+  color:black;
+}
+
+
+#view_profile h3 {
+  padding-bottom:4px;
+  color:#F60;
+}
+

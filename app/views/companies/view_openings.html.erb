@@ -1,0 +1,191 @@
+<script type="text/javascript" src="/navigation/jquery.idTabs.min.js"></script>
+<script type="text/javascript">
+<% num_openings = @openings.length %>
+$(document).ready(function() {
+    <% for num_profile in 1..num_openings%>
+          $('#profile_tabs<%=num_profile%>').tabs();
+    <%end%>
+    $('.boolean').each(function(){
+      if($(this).text()=='true') $(this).text('Yes');
+      else $(this).text('No');
+    });
+});
+
+//var $tabs= $("#tabs").tabs();
+
+</script>
+		<table width="70%">
+			<tr >
+              <% if @openings.length > 1 %>
+				<td  width="40%" style="vertical-align:top">
+				  		<div id ="profile_navigation">
+				  		<h3>Job Openings</h3>
+						  <ul id="view_profiles" class="idTabs">
+						      <li class="profile_each"><a class="selected_profile" href="#profile1" >Profile1</a></li>
+							  <% for num_profile in 2..@openings.length %>
+								  <li class="profile_each"><%= link_to "Profile#{num_profile}", "#profile#{num_profile}"%></li>
+							  <%end%>
+							  <!--profile_each is introduced because of clash with companies layout styles-->
+						  </ul>
+					  </div>
+				</td>
+              <%end%>
+				<td >
+					<div id="view_profile" >
+						<% num_profile = 0 %>
+						<% @openings.each do |opening| %>
+							<% num_profile+=1 %>
+							 <div id='profile<%=num_profile%>'>
+								<div id='profile_tabs<%=num_profile%>'>
+									<ul>
+										<li id='profile<%=num_profile%>tab1'><a href='#profile<%=num_profile%>tabs-1'>Job Profile</a></li>
+										<li id='profile<%=num_profile%>tab2'><a href='#profile<%=num_profile%>tabs-2'>Eligibility</a></li>
+										<li id='profile<%=num_profile%>tab3'><a href='#profile<%=num_profile%>tabs-3'>Remuneration</a></li>
+										<li id='profile<%=num_profile%>tab4'><a href='#profile<%=num_profile%>tabs-4'>Selection process</a></li>
+										<li id='profile<%=num_profile%>tab5'><a href='#profile<%=num_profile%>tabs-5'>Contact Information</a></li>
+									</ul>
+                  					<div id='profile<%=num_profile%>tabs-1' align='center'>
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h opening.nature %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.nature %></td>
+											 </tr>
+										 </table>
+									</div>
+
+									 <div id='profile<%=num_profile%>tabs-2' align='center'>
+										 <table width="50%" border="0" cellspacing="10" >
+										 	<h2>The departments to be recuited are from the following programmes</h2>
+											<tr>
+											<td width="6%"><strong>Eligibility</strong></td>
+											<td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h opening.eligibility.to_s %></td>
+											 </tr>
+										 </table>
+									</div>
+
+									<div id='profile<%=num_profile%>tabs-3' align='center'>
+                                          <h3>Package Details</h3>
+										 <table width="90%" border="0" cellspacing="10" >
+                                              <tr><td width="6%"></td><td width="10%"><strong>Gross Salary</strong></td><td width="10%"><strong>Total cost to Company</strong></td><td width="10%"><strong>Perks/Additional Information</strong></td></tr>                                           <%
+                                              prog_fullnames=Program::ProgramFullNames
+                                              prog_names=Program::ProgramNames
+                                              num_progs=prog_names.length
+                                              for p in 0..num_progs-1
+                                                package=opening["package_#{prog_names[p]}"]
+                                                if package
+                                            %>
+                                                  <tr>
+													<td><strong><%=  prog_fullnames[p] %> </strong></td>
+													<td><%=h package[0]%></td>
+                                                    <td><%=h package[1]%></td>
+                                                    <td><%=h package[2]%></td>
+                                                  </tr>
+                                                <%end%>
+                                               <%end%>
+										 </table>
+									</div>
+
+									<div id='profile<%=num_profile%>tabs-4' align='center'>
+										<table width="50%" border="0" cellspacing="10" >
+											<tr>
+												<td width="6%"><strong>Short list from Resumes</strong></td>
+												<td width="2%"><strong>:</strong></td>
+												<td width="5%" class="boolean"><%=opening.resume_shortlist%></td>
+											</tr>
+											<% if opening.resume_shortlist %>
+												<tr>
+													<td width="6%"><strong>Short list from Resumes</strong></td>
+													<td width="2%"><strong>:</strong></td>
+													<td width="5%"><%=h opening.resume_criteria %></td>
+												</tr>
+											<%end%>
+											<tr>
+												<td width="6%"><strong>Aptitude Test</strong></td>
+												<td width="2%"><strong>:</strong></td>
+												<td width="5%" class="boolean"><%=opening.aptitude%></td>
+											</tr>
+											<tr>
+												<td width="6%"><strong>Technical Test</strong></td>
+												<td width="2%"><strong>:</strong></td>
+												<td width="5%" class="boolean"><%=opening.tech_interview%></td>
+											</tr>
+											<tr>
+												<td width="6%"><strong>Group Discussion</strong></td>
+												<td width="2%"><strong>:</strong></td>
+												<td width="5%" class="boolean"><%=opening.gd%></td>
+											</tr>
+											<tr>
+												<td width="6%"><strong>Technical Interview</strong></td>
+												<td width="2%"><strong>:</strong></td>
+												<td width="5%" class="boolean"><%=opening.tech_interview%></td>
+											</tr>
+											<tr>
+												<td width="6%"><strong>Number Of Rounds</strong></td>
+												<td width="2%"><strong>:</strong></td>
+												<td width="5%">
+													<%=h opening.no_rounds %>
+												</td>
+											</tr>
+											<tr>
+												<td width="6%"><strong>HR Interview</strong></td>
+												<td width="2%"><strong>:</strong></td>
+												<td width="5%" class="boolean"><%=opening.hr_interview%></td>
+											</tr>
+										 </table>
+									</div>
+
+									<div id='profile<%=num_profile%>tabs-5' align='center'>
+                                         <% contacts=[]
+                                            contacts.push(opening.contact_details1)
+                                            if opening.contact_details2
+                                              contacts.push(opening.contact_details2)
+                                              if opening.contact_details3
+                                                contacts.push(opening.contact_details3)
+                                              end
+                                            end
+                                          %>
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h opening.nature %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h opening.nature %></td>
+											 </tr>
+										 </table>
+									</div>
+								</div>
+			  				</div>
+						<% end %>
+				  </div>
+				</td>
+
+			</tr>
+		</table>	
+    <%if num_openings==0 %>
+      <h4>There are no Job Openings.</h4>
+	<% end %>
+

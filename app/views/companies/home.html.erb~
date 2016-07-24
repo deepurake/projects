@@ -1,0 +1,7 @@
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+		<h1>company Profile</h1>
+		Welcome! <%=h  @user.name %> is logged in.<br/>
+		Details:<br/>
+		Login:<%=h  @user.userlogin.login %><br/>

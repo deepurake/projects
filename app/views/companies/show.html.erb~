@@ -1,0 +1,337 @@
+<html>
+	<head>
+		<link type="text/css" href="/jquery-ui/themes/base/ui.tabs.css" rel="stylesheet" />
+		<link type="text/css" href="/jquery-ui/themes/base/ui.core.css" rel="stylesheet" />
+		<link type="text/css" href="/jquery-ui/themes/base/ui.theme.css" rel="stylesheet" />
+		<script src="/javascripts/jquery.js" type="text/javascript"></script>
+		<script src="/javascripts/jquery.validate.js" type="text/javascript"></script>
+		<script src="/javascripts/cmxforms.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/jquery-ui/ui/ui.core.js"></script>
+		<script type="text/javascript" src="/jquery-ui/ui/ui.tabs.js"></script>
+		
+		<script type="text/javascript">
+		$(document).ready(function() {
+					
+					
+			var $tabs = $("#tabs").tabs();
+			$tabs.data('disabled.tabs', [1, 2, 3, 4, 5]);
+
+			$('#button1').click(function() {
+			  if($("#job_opening").valid()){
+				$tabs.tabs('enable', 1);
+		    $tabs.tabs('select', 1);
+		    return true;
+		  }
+		  //document.getElementById('tab1').innerHTML = "<a href='#tabs-1'><font color='red'>asda</font></a>";
+		});
+		$('#button2').click(function() {
+
+		  $tabs.tabs('enable', 2);
+		  $tabs.tabs('select', 2);
+		  return true;
+		});
+		$('#button3').click(function() {
+		  $("#btech_gross").rules("add",{
+		    required: true
+		  });
+		  if($("#job_opening").valid()){
+		    $tabs.tabs('enable', 3);
+		    $tabs.tabs('select', 3);
+		    return true;
+		  }
+		});
+		$('#button4').click(function() {
+		  $tabs.tabs('enable', 4);
+		  $tabs.tabs('select', 4);
+		  return true;
+		});
+		$('#button5').click(function() {
+		  $tabs.tabs('enable', 5);
+		  $tabs.tabs('select', 5);
+		  return true;
+		});
+		$("#job_opening").validate({
+		  rules: {
+		    company_business:"required",
+		    job_design:"required",
+		    job_descrp:"required",
+		  }
+		});
+		});
+
+		//var $tabs= $("#tabs").tabs();
+
+
+		</script>
+		<style type="text/css">
+		#job_opening label.error, #job_opening input.submit { margin-left: 50px; }
+		</style>
+		
+	</head>
+	<body>
+		<h1>company Profile</h1>
+		Welcome! <%=h  @user.name %> is logged in.<br/>
+		Details:<br/>
+		Login:<%=h  @user.userlogin.login %><br/>
+		<div id="tabs">
+			<ul>
+				<li id="tab1"><a href="#tabs-1">Job Profile</a></li>
+				<li><a href="#tabs-2">Eligibility</a></li>
+				<li><a href="#tabs-3">Remuneration (Package)</a></li>
+				<li><a href="#tabs-4">Selection Process</a></li>
+				<li><a href="#tabs-5">Contact Information</a></li>
+				<li><a href="#tabs-6">Finalise Opening</a></li>
+			</ul>
+
+		<form name="job_opening" id="job_opening" method="post" action="">
+			<div id="tabs-1" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+			 <tr>
+			 <td width="6%"><strong>Nature of Business</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%">
+		<textarea name= "company_business" id = "company_business" rows="2" cols="30" wrap="hard"></textarea></td></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Job Designation</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><textarea name= "job_design" id= "job_design" rows="2" cols="30" wrap="hard"></textarea></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Job Description</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><textarea name= "job_descrp" id= "job_descrp" rows="2" cols="30" wrap="hard"></textarea></td>
+			 </tr>
+			<tr><td width="6%"><strong>Internship</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="radio" name="intern" id="intern" value="yes" checked><strong>YES</strong>&nbsp;&nbsp;
+			 <input type="radio" name="intern" id="intern" value="no"><strong>NO</strong></td>
+			 </tr>
+			 </table>
+			<div align="right">
+			  <input id="button1" type="button" value="Continue"/>
+			</div>
+			</div>
+
+			<div id="tabs-2" align="center">
+		<table width="90%" border="0" cellspacing="5">
+
+			  <tr><td><strong></strong></td><td><strong>B.Tech</strong></td><td><strong>Dual (BT+MT)</strong></td><td><strong>M.Tech</strong></td><td><strong>PhD</strong></td><td><strong>M.Sc.Int (5yr)</strong></td><td><strong>M.Sc (2yr)</strong></td><td><strong>MBA</strong></td><td><strong>M.Des</strong></td></tr>
+			  <tr><td><strong><i>Select all <b>--></b></i></strong></td><td><input class="check" type="button" name="all_btech" value="All Btech" onclick="makeCheck_btech(this.form)" ondblclick="makeUnCheck_btech(this.form)"></td>
+		<td><input class="check" type="button" name="all_dual" value="All Dual" onclick="makeCheck_dual(this.form)" ondblclick="makeUnCheck_dual(this.form)"></td>
+		<td><input class="check" type="button" name="all_mtech" value="All Mtech" onclick="makeCheck_mtech(this.form)" ondblclick="makeUnCheck_mtech(this.form)"></td>
+		<td><input class="check" type="button" name="all_phd" value="All Phd" onclick="makeCheck_phd(this.form)" ondblclick="makeUnCheck_phd(this.form)"></td>
+		<td><input class="check" type="button" name="all_msc5" value="All Msc5" onclick="makeCheck_msc5(this.form)" ondblclick="makeUnCheck_msc5(this.form)"></td>
+		<td><input class="check" type="button" name="all_msc2" value="All Msc2" onclick="makeCheck_msc2(this.form)" ondblclick="makeUnCheck_msc2(this.form)"></td>
+		<td><input class="check" type="button" name="all_mba" value="All Mba" onclick="makeCheck_mba(this.form)" ondblclick="makeUnCheck_mba(this.form)"></td>
+		<td><input class="check" type="button"  name="all_mdes" value="All MDes" onclick="makeCheck_mdes(this.form)" ondblclick="makeUnCheck_mdes(this.form)"></td></tr>
+		<td><input type="checkbox" name="AE[]" id="dual" value="dual"></td><td><input type="checkbox" name="AE[]" id="mt" value="mt"></td><td><input type="checkbox" name="AE[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Biological Sciences and Bioengineering</strong></td><td><input type="checkbox" id="bt" name="BSBE[]" value="bt"></td><td><input type="checkbox" name="BSBE[]" id="dual" value="dual"></td><td><input type="checkbox" name="BSBE[]" id="mt" value="mt"></td><td><input type="checkbox" name="BSBE[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr></tr>
+		<tr><td><strong>Chemical Engineering</strong></td><td><input type="checkbox" id="bt" name="CHE[]" value="bt"></td><td><input type="checkbox" name="CHE[]" id="dual" value="dual"></td><td><input type="checkbox" name="CHE[]" id="mt" value="mt"></td><td><input type="checkbox" name="CHE[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Chemistry</strong></td><td></td><td></td><td></td><td><input type="checkbox" name="CHM[]" id="phd" value="phd"></td><td><input type="checkbox" name="CHM[]5" id="msc5" value="msc5"></td><td><input type="checkbox" name="CHM[]2" id="msc2" value="msc2"></td><td></td><td></td></tr>
+		<tr><td><strong>Civil Engineering</strong></td><td><input type="checkbox" id="bt" name="CE[]" value="bt"></td><td><input type="checkbox" name="CE[]" id="dual" value="dual"></td><td><input type="checkbox" name="CE[]" id="mt" value="mt"></td><td><input type="checkbox" name="CE[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Computer Science and Engineering</strong></td><td><input type="checkbox" id="bt" name="CSE[]" value="bt"></td><td><input type="checkbox" name="CSE[]" id="dual" value="dual"></td><td><input type="checkbox" name="CSE[]" id="mt" value="mt"></td><td><input type="checkbox" name="CSE[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Design Program</strong></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><input type="checkbox" id="mdes" name="DES[]" value="mdes"></td></tr>
+		<tr><td><strong>Electrical Engineering</strong></td><td><input type="checkbox" id="bt" name="EE[]" value="bt"></td><td><input type="checkbox" name="EE[]" id="dual" value="dual"></td><td><input type="checkbox" name="EE[]" id="mt" value="mt"></td><td><input type="checkbox" name="EE[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Environmental Engineering & Management</strong></td><td></td><td></td><td><input type="checkbox" name="EEM[]" id="mt" value="mt"></td><td></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Industrial & Management Engineering</strong></td><td></td><td></td><td><input type="checkbox" name="IME[]" id="mt" value="mt"></td><td><input type="checkbox" name="IME[]" id="phd" value="phd"></td><td></td><td></td><td><input type="checkbox" name="IME[]" id="mba" value="mba"></td><td></td></tr>
+		<tr><td><strong>Laser Technology</strong></td><td></td><td></td><td><input type="checkbox" name="LT[]" id="mt" value="mt"></td><td></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Mechanical Engineering</strong></td><td><input type="checkbox" id="bt" name="ME[]" value="bt"></td><td><input type="checkbox" name="ME[]" id="dual" value="dual"></td><td><input type="checkbox" name="ME[]" id="mt" value="mt"></td><td><input type="checkbox" name="ME[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Materials and Metallurgical Engineering</strong></td><td><input type="checkbox" id="bt" name="MME[]" value="bt"></td><td><input type="checkbox" name="MME[]" id="dual" value="dual"></td><td><input type="checkbox" name="MME[]" id="mt" value="mt"></td><td><input type="checkbox" name="MME[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Materials Science</strong></td><td></td><td></td><td><input type="checkbox" name="MS[]" id="mt" value="mt"></td><td><input type="checkbox" name="MS[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Mathematics and Scientific Computing</strong></td><td></td><td></td><td></td><td></td><td><input type="checkbox" name="MSC[]5" id="msc5" value="msc5"></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Mathematics and Statistics</strong></td><td></td><td></td><td></td><td><input type="checkbox" name="MTH[]" id="phd" value="phd"></td><td></td><td><input type="checkbox" name="MTH[]2" id="msc2" value="msc2"></td><td></td><td></td></tr>
+		<tr><td><strong>Nuclear Engineering and Technology</strong></td><td></td><td></td><td><input type="checkbox" name="NE[]" id="mt" value="mt"></td><td><input type="checkbox" name="NE[]" id="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+		<tr><td><strong>Physics</strong></td><td></td><td></td><td></td><td><input type="checkbox" name="PHY[]" id="phd" value="phd"></td><td><input  type="checkbox" name="PHY[]5" id="msc5" value="msc5"></td><td><input type="checkbox" name="PHY[]2" id="msc2" value="msc2"></td><td></td><td></td></tr>
+		<tr><td><strong><i>Select all <b>--></b></i></strong></td><td><input class="check" type="button" name="all_btech" value="All Btech" onclick="makeCheck_btech(this.form)" ondblclick="makeUnCheck_btech(this.form)"></td>
+		<td><input class="check" type="button" name="all_dual" value="All Dual" onclick="makeCheck_dual(this.form)" ondblclick="makeUnCheck_dual(this.form)"></td>
+		<td><input class="check" type="button" name="all_mtech" value="All Mtech" onclick="makeCheck_mtech(this.form)" ondblclick="makeUnCheck_mtech(this.form)"></td>
+		<td><input class="check" type="button" name="all_phd" value="All Phd" onclick="makeCheck_phd(this.form)" ondblclick="makeUnCheck_phd(this.form)"></td>
+		<td><input class="check" type="button" name="all_msc5" value="All Msc5" onclick="makeCheck_msc5(this.form)" ondblclick="makeUnCheck_msc5(this.form)"></td>
+		<td><input class="check" type="button" name="all_msc2" value="All Msc2" onclick="makeCheck_msc2(this.form)" ondblclick="makeUnCheck_msc2(this.form)"></td>
+		<td><input class="check" type="button" name="all_mba" value="All Mba" onclick="makeCheck_mba(this.form)" ondblclick="makeUnCheck_mba(this.form)"></td>
+		<td><input class="check" type="button"  name="all_mdes" value="All MDes" onclick="makeCheck_mdes(this.form)" ondblclick="makeUnCheck_mdes(this.form)"></td></tr>
+
+		</table>
+			<div align="right">
+			  <input id="button2" type="button" value="Continue"/>
+			</div>
+
+			</div>
+
+
+			<div id="tabs-3" align="center">
+		<table width="80%" border="0" cellspacing="10">
+			 <tr><td colspan="4"><font face="Arial"><h4>Please note :</h4></font></td></tr>
+			 <tr>
+			   <td></td><td></td><td></td>
+			   <td><font face="Verdana" size="2">
+				 <ol>
+				    <li>Pleae fill in all the fields relevant as per the eligibility criterion specified.</li>
+				    <li>Performance based bonus should be declared independently and not as part of Gross/CTC.</li>
+				    <li>Any amount to be disbursed later than the end of first 12 months should not be a part of Gross/CTC but can be mentioned separately.</li>
+				  </ol>
+				</font></td>
+			<tr>
+		</table>
+
+
+		<table width="80%" border="0" cellspacing="10">
+			<tr><td><strong></strong></td><td><strong>Gross Salary</strong></td><td><strong>Total cost to Company</strong></td><td><strong>Perks/Additional Information</strong></td></tr>
+			  <tr><td><strong>B.Tech</strong></td><td><input type="text" name="btech_gross" name="btech_gross"></td><td><input type="text" name="btech_total"></td><td><input type="text" name="btech_perks"></td></tr>
+			  <tr><td><strong>Dual Degree</strong></td><td><input type="text" name="dual_gross"></td><td><input type="text" name="dual_total"></td><td><input type="text" name="dual_perks"></td></tr>
+			  <tr><td><strong>Int. M.Sc (5 yr)</strong></td><td><input type="text" name="msc5yr_gross"></td><td><input type="text" name="msc5yr_total"></td><td><input type="text" name="msc5yr_perks"></td></tr>
+			  <tr><td><strong>M.Tech</strong></td><td><input type="text" name="mtech_gross"></td><td><input type="text" name="mtech_total"></td><td><input type="text" name="mtech_perks"></td></tr>
+			  <tr><td><strong>M.Sc (2 yr)</strong></td><td><input type="text" name="msc2yr_gross"></td><td><input type="text" name="msc2yr_total"></td><td><input type="text" name="msc2yr_perks"></td></tr>
+			  <tr><td><strong>MBA</strong></td><td><input type="text" name="mba_gross"></td><td><input type="text" name="mba_total"></td><td><input type="text" name="mba_perks"></td></tr>
+			  <tr><td><strong>PhD</strong></td><td><input type="text" name="phd_gross"></td><td><input type="text" name="phd_total"></td><td><input type="text" name="phd_perks"></td></tr>
+			  <tr><td><strong>M.Des</strong></td><td><input type="text" name="mdes_gross"></td><td><input type="text" name="mdes_total"></td><td><input type="text" name="mdes_perks"></td></tr>
+		</table>
+			 <table width="80%" style="table-layout:fixed;" border="0" cellspacing="10">
+			  <tr><td><strong>Package Details (If any )</strong></td><td><textarea name= "package_details" id= "package_details" rows="3" cols="30" wrap="hard"></textarea></td></tr>
+			 <tr>
+			 <td><strong>Is there a service bond/contract?</strong></td>
+			 <td>
+			  <input type="radio" name="bond" id="bond_yes" value="yes"><strong>YES</strong>&nbsp;&nbsp;
+			  <input type="radio" name="bond" id="bond_no" value="no"><strong>NO</strong>
+			</td>
+			 </tr>
+			 <tr>
+			 <td><strong>If yes, what will be the duration, amount and stipulated conditions?</strong></td>
+			 <td><textarea name= "bond_details" id= "bond_details" rows="3" cols="30" wrap="hard"></textarea></td>
+			 </tr>
+			  <tr>
+				  <td><strong>Medical Requirements</strong></td>
+				<td><textarea name = "med_req" id = "med_req" rows="3" cols="30" wrap="hard"></textarea></td>
+			</tr>
+			</table>
+			<div align="right">
+			  <input id="button3" type="button" value="Continue"/>
+		  </div>
+			</div>
+
+
+
+			<div id="tabs-4" align="center">
+		  <table width="50%" border="0" cellspacing="10">
+		  <tr>
+			 <td width="6%"><strong>Shortlist from Resumes</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="radio" name="shortlist" id="shortlist_yes" value="yes"><strong>YES</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		   <input type="radio" name="shortlist" id="shortlist_no" value="no"><strong>NO</strong></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>If Yes, Specify Criteria</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="text" name="resume_criteria" id="resume_criteria"></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Aptitude Test</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="radio" name="aptitude" id="aptitude" value="yes"><strong>YES</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="aptitude" id="aptitude" value="no"><strong>NO</strong></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Technical Test</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="radio" name="technical" id="technical" value="yes"><strong>YES</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		   <input type="radio" name="technical" id="technical" value="no"><strong>NO</strong></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Group Discussion</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="radio" name="gd" id="gd" value="yes"><strong>YES</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 <input type="radio" name="gd" id="gd" value="no"><strong>NO</strong></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Technical Interview</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="radio" name="tech_int" id="tech_int" value="yes"><strong>YES</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="tech_int" id="tech_int" value="no"><strong>NO</strong></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Number of Rounds</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+		<td width="5%">
+		<select name="no_rounds">
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+		<option>5</option>
+		<option>6</option>
+		<option>7</option>
+		<option>8</option>
+		<option>9</option>
+		<option>10</option>
+		</select>
+		</td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>HR Interview</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="radio" name="hr_int" id="hr_int" value="yes"><strong>YES</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="hr_int" id="hr_int" value="no"><strong>NO</strong></td>
+			 </tr>
+			</table>
+			<div align="right">
+			  <input id="button4" type="button" value="Continue"/>
+			</div>
+			</div>
+
+
+			<div id="tabs-5" align="center">
+			<table width="50%" border="0" cellspacing="10">
+			 <tr>
+			 <td width="6%"><strong>Contact Person</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="text" name="person" id="person"></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Designation</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="text" name="design" id="design"></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Address</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="text" name="address" id="address"></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>PIN</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="text" name="pin" id="pin"></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Telephone No</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="text" name="tel" id="tel"></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>FAX No</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="text" name="fax" id="fax"></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Cell No</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="text" name="cell" id="cell"></td>
+			 </tr>
+			 <tr>
+			 <td width="6%"><strong>Email</strong></td>
+			 <td width="2%"><strong>:</strong></td>
+			 <td width="5%"><input type="text" name="email" id="email"></td>
+			 </tr>
+		</table>
+		<div align="right">
+			  <input id="button5" type="button" value="Continue"/>
+			</div>
+			</div>
+
+			<div id="tabs-6">
+			  <input type="submit" value="Submit"/>
+			</div>
+			</form>
+		</div>
+	</body>
+</html>

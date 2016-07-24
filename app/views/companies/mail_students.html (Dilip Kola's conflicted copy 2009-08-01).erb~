@@ -1,0 +1,18 @@
+<br/><br/>
+<% form_tag({ :controller=>"emailer",  :action=>"sendmail"},:method=>"post") do %>
+	<table style="clear:left">
+		<tr>
+			<td><b>Subject:</b></td>
+			<td><input type='text' name="email[subject]" id='subject'/></td>
+		</tr>
+		<tr>
+			<td><b>Reciptant:</b></td>
+			<td><input type='text' name="email[reciptant]" id='reciptant'/></td>
+		</tr>
+		<tr>
+			<td><b>Message:</b></td>
+			<td><input type='text' name="email[message]" id='message'/></td>
+		</tr>
+	</table>
+	<%= submit_tag "Send" %>
+<% end %>

@@ -1,0 +1,70 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+        $('#notice_content').wysiwyg(
+		{
+		controls : {
+		separator01 : { visible : true },
+		separator03 : { visible : true },
+		separator04 : { visible : true },
+		separator00 : { visible : true },
+		insertOrderedList : { visible : true },
+		insertUnorderedList : { visible : true },
+		undo: { visible : true },
+		redo: { visible : true },
+		justifyLeft: { visible : true },
+		justifyCenter: { visible : true },
+		justifyRight: { visible : true },
+		justifyFull: { visible : true },
+		subscript: { visible : true },
+		superscript: { visible : true },
+		underline: { visible : true }
+		html:{visible : true}
+		}
+		} );
+		
+	$("#notice_form").validate({
+		rules: {
+			"notice[title]":"required",
+      "notice[sent_to]":{
+        required: true,
+      },
+      "notice[content]":"required"
+		},
+
+		messages: {
+			"notice[title]": {
+				required: "Title is required"
+			},
+			"notice[sent_to]": {
+			  required: "This field is compulsory",
+				email: "Please provide a valid email"
+			},
+			"notice[content]":{
+			  required: "Content can't be empty"
+			}
+		}
+	});
+	});
+</script>
+<% form_for @notice,:url => {:action => 'add_notice'},:html => {:enctype=>'multipart/form-data',:name => 'notice_form',:id => 'notice_form',:class => 'cmxform'} do |f| %>
+  <%= f.error_messages %>
+  <p>
+    Title:
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    Send To:
+    <%= f.text_field :sent_to %>
+  </p>
+  <p>
+    Content:
+      <%= f.text_area :content, :cols => '70',:rows=>'5' %>
+  </p>
+  <p>
+    Attachment:
+    <input type="file" class="multi" name="attachment"/>
+  </p>
+
+  <p><input type="submit" value="Add Notice"></p>
+<%end%>
+

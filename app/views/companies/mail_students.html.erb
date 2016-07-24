@@ -1,0 +1,49 @@
+<script type="text/javascript" src="/rteditor/rteditor.js"></script>
+<link rel="stylesheet" type="text/css" href="/rteditor/rteditor.css" />
+<script type= "text/javascript">
+$(document).ready(function() {
+        $('#user_mailer_message').wysiwyg(
+		{
+          controls : {
+            separator01 : { visible : true },
+            separator03 : { visible : true },
+            separator04 : { visible : true },
+            separator00 : { visible : true },
+            insertOrderedList : { visible : true },
+            insertUnorderedList : { visible : true },
+            undo: { visible : true },
+            redo: { visible : true },
+            justifyLeft: { visible : true },
+            justifyCenter: { visible : true },
+            justifyRight: { visible : true },
+            justifyFull: { visible : true },
+            subscript: { visible : true },
+            superscript: { visible : true },
+            underline: { visible : true },
+            html:{visible : true}
+          }
+		} );
+});
+</script>
+<br/><br/>
+<% form_for :user_mailer,:url =>{:action=>'create',:controller=>'user_mailer'} do |mailer| %>
+	<table style="clear:left">
+		<tr>
+			<td><b>Subject:</b></td>
+			<td><%= mailer.text_field :subject %></td>
+		</tr>
+		<tr>
+			<td><b>Recipient:</b></td>
+			<td><%= mailer.text_field :recipient %></td>
+		</tr>
+		<tr>
+			<td><b>Message:</b></td>
+			<td><%= mailer.text_area :message, :size => '70x6'%></td>
+		</tr>
+		<tr>
+			<td><b>sender:</b></td>
+			<td><%= mailer.text_field :sender %></td>
+		</tr>
+	</table>
+	<%= mailer.submit "Send" %>
+<% end %>

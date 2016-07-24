@@ -1,0 +1,140 @@
+			body {
+				margin: 0; padding: 0;
+				font: 12px normal Arial, Helvetica, sans-serif;
+			}
+			#header {
+				position:relative;
+				padding: 0;
+				margin: 0 auto;
+                height:35px;
+			}
+			#companypage{
+				position: absolute;
+				left: 5%;
+				width: 90%;
+			}
+			#topheadnav {
+				list-style: none;
+				margin: 0;
+				float: left;
+				width: 100%;
+                height:100%;
+				background: #222;
+				font-size: 1.2em;
+				background: url(topheadnav_bg.png);
+				z-index :10;
+			}
+			#topheadnav li {
+				float: left;
+				margin: 0;
+				position: relative; /*--Declare X and Y axis base--*/
+			}
+			#topheadnav li a{
+				padding: 9px 15px;
+				color: #fff;
+				display: block;
+				text-decoration: none;
+			}
+			#topheadnav li a.selected{
+				color: black;
+                background: url(selected_bg.png) no-repeat center top;
+				display: block;
+				text-decoration: none;
+			}
+			#topheadnav li span { /*--Drop down trigger styles--*/
+				width: 17px;
+				height: 35px;
+				float: left;
+				/*background: url(subheadnav_btn.png) no-repeat center top;*/
+			}
+			#topheadnav li ul.subheadnav {
+				list-style: none;
+				position: absolute; /*--Important - Keeps subheadnav from affecting main navigation flow--*/
+				left: 0; top: 35px;
+				background: url(topheadnav_bg.png);
+				margin: 0; padding: 0;
+				display: none;
+				float: left;
+				width: 120px;
+				-moz-border-radius-bottomleft: 5px;
+				-moz-border-radius-bottomright: 5px;
+				-webkit-border-bottom-left-radius: 5px;
+				-webkit-border-bottom-right-radius: 5px;
+				border: 1px solid #111;
+				z-index :10;
+			}
+			#topheadnav li ul.subheadnav li{
+				margin: 0; padding: 0;
+				border-top: 1px solid #252525; /*--Create bevel effect--*/
+				border-bottom: 1px solid #444; /*--Create bevel effect--*/
+				clear: both;
+			}
+			html #topheadnav li ul.subheadnav li a{
+				float: left;
+				display: block;
+				width: 95px;
+				height:10px;
+				background: #333 url(topheadnav_bg.png) no-repeat 5px center;
+				padding-left: 10px;
+			}
+
+#profile_navigation{
+    width:120px;
+}
+
+
+#view_profiles {
+  width:90px;
+  color:#68D;
+  font: 1.3em Cambria, Times New Roman, serif;
+  float:left;
+  list-style:none;
+}
+#view_profiles li{
+    margin:0;
+}
+#view_profiles li a {
+  width:100px;
+  height:40px;
+  padding:2px 6px 4px;
+  background-image:url('blue.png');
+  margin:1px;
+  display:block;
+  text-decoration:none;
+  text-align:right;
+  color:white;
+  font-weight:bold;
+  font-size:1.0em;
+  font-style:normal;
+  border:0px;
+}
+#view_profiles li a:hover {
+  background-image:url('green.png');
+  width:110px;
+}
+#view_profiles li a.selected_profile {
+  background-image:url('gray.png');
+  cursor:default;
+}
+
+#view_profile {
+  width:702px;
+  padding-top:2px;
+  border:0px solid #222;
+  color:black;
+}
+
+
+#view_profile h3 {
+  padding-bottom:4px;
+  color:#F60;
+}
+#eligibility_table{
+  border-spacing:0 5px;
+}
+#eligibility_table a{
+    font-family:"Arial",Verdana,Sans-serif;
+    font-size:12px;
+    color:Coral;
+}
+

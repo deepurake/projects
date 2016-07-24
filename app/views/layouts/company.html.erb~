@@ -1,0 +1,9 @@
+<head>
+	<title><%= @company.name %></title>
+	<link rel="stylesheet" href="/stylesheets/companylayout.css" type="text/css" title='currentStyle' />
+</head>
+<body>
+	<a class = left href="http://localhost:3000/company" target="_top">home</a>
+	<a class = left href="http://localhost:3000/accepted_application" target="_top">applications</a>
+	<%= yield %>
+</body>

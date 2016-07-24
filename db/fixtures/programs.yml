@@ -1,0 +1,35 @@
+%YAML 1.1
+---
+-
+  id: 1
+  name: btech
+  fullname: B.Tech
+-
+  id: 2
+  name: dual
+  fullname: Dual Degree
+-
+  id: 3
+  name: msci
+  fullname: Int. M.Sc (5 yr)
+-
+  id: 4
+  name: mtech
+  fullname: M.Tech
+-
+  id: 5
+  name: msc2
+  fullname: M.Sc (2 yr)
+-
+  id: 6
+  name: mba
+  fullname: MBA
+-
+  id: 7
+  name: mdes
+  fullname: M.Des
+-
+  id: 8
+  name: phd
+  fullname: PhD
+...

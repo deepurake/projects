@@ -1,0 +1,11 @@
+class EmailerController < ApplicationController
+   def sendmail
+      email = params["email"]
+   recipient = email["recipient"]
+   subject = email["subject"]
+   message = email["message"]
+      UserMailer.deliver_company_mail(recipient, subject, message)
+      return if request.xhr?
+      render :text => 'Message sent successfully'
+   end
+end

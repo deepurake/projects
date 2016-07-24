@@ -1,0 +1,46 @@
+		<link rel="stylesheet" href="/media/css/demos.css" type="text/css" title='currentStyle' /><!--nofunction-->
+		<script type="text/javascript" language="javascript" src="/media/js/jquery.dataTables.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+	      $('#example').dataTable( {
+		      "bPaginate": true,
+		      "bLengthChange": true,
+		      "bFilter": false,
+		      "bSort": true,
+		      "bInfo": true,
+		      "bAutoWidth": true } );
+      } );
+		</script>
+
+		<div id="demo">
+			<br/><br/><br/><br/><br/><br/>
+				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+					<thead>
+						<tr>
+							<th>Opening</th>
+							<th style="width:200px">Name of the student</th>
+							<th style="width:120px">Department</th>
+							<th>Degree</th>
+							<th style="width:150px">Student resume</th>
+							<th>Shortlist</th>
+							<th>Reject</th>
+						</tr>
+					</thead>
+					<tbody>
+					<% @rejected_applications.each do |rejected_application|%>
+						<tr class="gradeB">
+							<td>Trident</td>
+							<td>Internet
+								 Explorer 4.0</td>
+							<td>Win 95+</td>
+							<td class="center">4</td>
+							<td class="center">Xsd</td>
+							<td class="center">Xsd</td>
+							<td class="center"><%=h rejected_application%></td>
+						</tr>
+					<%end%>
+					</tbody>
+					</table>
+			</div>
+

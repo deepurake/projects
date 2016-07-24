@@ -1,0 +1,279 @@
+
+<link type="text/css" href="/jquery-ui/themes/base/ui.all.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/validation/screen.css" />
+<script src="/javascripts/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="/jquery-ui/ui/ui.core.js"></script>
+<script type="text/javascript" src="/jquery-ui/ui/ui.tabs.js"></script>
+
+ <!--for freedom button-->
+<link rel="stylesheet" href="/navigation/main.css" type="text/css" title='main' media="screen" />
+<link rel="stylesheet" href="/navigation/page.css" type="text/css" title='main' media="screen" />
+<script type="text/javascript" src="/navigation/jquery.idTabs.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var $tabs = $("#tabs").tabs();
+});
+
+//var $tabs= $("#tabs").tabs();
+
+
+</script>
+
+
+	<% if @opening.length > 1 %>
+		<table width="70%">
+			<tr >
+				<td  width="20%" style="vertical-align:top">
+				  		<div id = "profile_navigation">
+						<ul id="view_profiles" class="idTabs">
+							<li style="width:600px">Job Openings</li>
+							<% @opening.each do|opening| %>
+								<li class="profile_each"><a class="selected_profile" href="#" >First</a></li>
+							<%end%>
+							<!--profile_each is introduced because of clash with companies layout styles-->
+						</ul>
+					  </div>
+				</td>
+				
+				<td >
+					<div id="view_profile" >
+						<% @opening.each do |opening| %>
+							<div id="<%=h opening.name %>">
+								<div id="tabs">
+						
+									<ul>
+										<li id="tab1"><a href="#tabs-1">Job Profile</a></li>
+										<li id="tab2"><a href="#tabs-2">Eligibility</a></li>
+										<li id="tab3"><a href="#tabs-3">Remuneration</a></li>
+										<li id="tab4"><a href="#tabs-4">Selection process</a></li>
+										<li id="tab5"><a href="#tabs-5">Package</a></li>
+									</ul>
+
+									<div id="tabs-1" align="center">
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h @opening.business_type %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.business_type %></td>
+											 </tr>
+										 </table>
+									</div>
+							
+									<div id="tabs-2" align="center">
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h @opening.business_type %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.business_type %></td>
+											 </tr>
+										 </table>
+									</div>
+							
+									<div id="tabs-3" align="center">
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h @opening.business_type %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.business_type %></td>
+											 </tr>
+										 </table>
+									</div>
+							
+									<div id="tabs-4" align="center">
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h @opening.business_type %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.business_type %></td>
+											 </tr>
+										 </table>
+									</div>
+							
+									<div id="tabs-5" align="center">
+										 <table width="50%" border="0" cellspacing="10" >
+											   <tr>
+											   <td width="6%"><strong>Nature of Business</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%">
+												<%=h @opening.business_type %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Designation</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.designation %></td>
+											 </tr>
+											 <tr>
+											   <td width="6%"><strong>Job Description</strong></td>
+											   <td width="2%"><strong>:</strong></td>
+											 <td width="5%"><%=h @opening.business_type %></td>
+											 </tr>
+										 </table>
+									</div>
+								</div>
+			  				</div>
+						<% end %>
+				  </div>
+				</td>
+				
+			</tr>
+		</table>
+	<% elsif @opening.length > 1 %>
+		<div id="tabs">
+
+		<ul>
+			<li id="tab1"><a href="#tabs-1">Job Profile</a></li>
+			<li id="tab2"><a href="#tabs-2">Eligibility</a></li>
+			<li id="tab3"><a href="#tabs-3">Remuneration</a></li>
+			<li id="tab4"><a href="#tabs-4">Selection process</a></li>
+			<li id="tab5"><a href="#tabs-5">Package</a></li>
+		</ul>
+
+		<div id="tabs-1" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+				   <tr>
+				   <td width="6%"><strong>Nature of Business</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h @opening.business_type %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Designation</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.designation %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Description</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.business_type %></td>
+				 </tr>
+			 </table>
+		</div>
+	
+		<div id="tabs-2" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+				   <tr>
+				   <td width="6%"><strong>Nature of Business</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h @opening.business_type %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Designation</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.designation %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Description</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.business_type %></td>
+				 </tr>
+			 </table>
+		</div>
+	
+		<div id="tabs-3" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+				   <tr>
+				   <td width="6%"><strong>Nature of Business</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h @opening.business_type %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Designation</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.designation %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Description</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.business_type %></td>
+				 </tr>
+			 </table>
+		</div>
+	
+		<div id="tabs-4" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+				   <tr>
+				   <td width="6%"><strong>Nature of Business</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h @opening.business_type %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Designation</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.designation %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Description</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.business_type %></td>
+				 </tr>
+			 </table>
+		</div>
+	
+		<div id="tabs-5" align="center">
+			 <table width="50%" border="0" cellspacing="10" >
+				   <tr>
+				   <td width="6%"><strong>Nature of Business</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%">
+					<%=h @opening.business_type %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Designation</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.designation %></td>
+				 </tr>
+				 <tr>
+				   <td width="6%"><strong>Job Description</strong></td>
+				   <td width="2%"><strong>:</strong></td>
+				 <td width="5%"><%=h @opening.business_type %></td>
+				 </tr>
+			 </table>
+		</div>
+	<% end %>

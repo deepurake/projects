@@ -1,0 +1,69 @@
+require 'net/imap.rb'
+class UserloginSessionsController < ApplicationController
+  before_filter :require_no_login, :only => [:new, :create]
+  before_filter :require_login, :only => :destroy
+
+  layout :change_layout
+
+  def show
+    @user = current_user
+    if !@user
+      redirect_to login_url
+      return
+    end
+    case @user.loginable_type
+      when "Student" then redirect_to student_home_path
+      when "Admin" then redirect_to admin_home_path
+      when "Company" then redirect_to company_home_path
+    end
+  end
+
+  def new
+    @login_session = UserloginSession.new
+  end
+
+  def create
+    puts "asdas"
+    @login_session = UserloginSession.new(params[:userlogin_session])
+		test=params[:test]
+		print test[0],test[1],test[2]
+    if @login_session.save
+      @user = @login_session && @login_session.record
+
+      case @user.loginable_type
+        when "Student" then redirect_to student_home_path
+        when "Company" then redirect_to company_home_path
+        when "Admin" then redirect_to admin_home_path
+      end
+      return
+    else
+      @errormsg = ""
+      @login_session.errors.each do |attr,msg|
+
+        if attr == 'base'
+          @error_attr = ""
+       else
+          @error_attr = attr + " "
+          #To captialize first letter
+          @error_attr[0]-=32
+       end
+        @errormsg = @errormsg + @error_attr + msg
+      end
+      flash[:notice] ="<div class='errorExplanation'> "+@errormsg+"</div>"
+      redirect_to login_path
+     end
+   end
+
+  def destroy
+    @login_session = UserloginSession.find
+    @login_session.destroy
+    flash[:notice] = "Successfully logged out."
+    redirect_to login_path
+  end
+
+  def change_layout
+     "loginform"
+  end
+
+end
+

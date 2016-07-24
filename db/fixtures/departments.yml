@@ -1,0 +1,79 @@
+%YAML 1.1
+---
+-
+  id: 1
+  name: AE
+  fullname: Aerospace Engineering
+-
+  id: 2
+  name: BSBE
+  fullname: Biological Sciences and Bioengineering
+-
+  id: 3
+  name: CE
+  fullname: Civil Engineering
+-
+  id: 4
+  name: CHE
+  fullname: Chemical Engineering
+-
+  id: 5
+  name: CSE
+  fullname: Computer Science and Engineering
+-
+  id: 6
+  name: EE
+  fullname: Electrical Engineering
+-
+  id: 7
+  name: IME
+  fullname: Industrial Management and Engineering
+-
+  id: 8
+  name: MME
+  fullname: Materials and Metallurgical Engineering
+-
+  id: 9
+  name: ME
+  fullname: Mechanical Engineering
+-
+  id: 10
+  name: CHM
+  fullname: Chemistry
+-
+  id: 11
+  name: ECO
+  fullname: Economics
+-
+  id: 12
+  name: MSC
+  fullname: Mathematics and Scientific Computing
+-
+  id: 13
+  name: MTH
+  fullname: Mathematics and Statistics
+-
+  id: 14
+  name: PHY
+  fullname: Physics
+-
+  id: 15
+  name: MDes
+  fullname: Master of Design
+-
+  id: 16
+  name: EEM
+  fullname: Environmental Engineering and Management
+-
+  id: 17
+  name: LT
+  fullname: Laser Technology
+-
+  id: 18
+  name: MS
+  fullname: Materials Science
+-
+  id: 19
+  name: NET
+  fullname: Nuclear Engineering Technology
+...

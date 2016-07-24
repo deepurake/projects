@@ -1,0 +1,59 @@
+<script type="text/javascript" src="/rteditor/rteditor.js"></script>
+<link rel="stylesheet" type="text/css" href="/rteditor/rteditor.css" />
+<script type="text/javascript">
+
+function getStyle()
+   {
+      var temp = document.getElementById("notice").style.display;
+
+      return temp;
+   }
+
+ function addNotice()
+  {
+
+      var current = getStyle();
+
+      if( current == "block" )
+       {
+         document.getElementById("notice").style.display = "none";
+         document.getElementById("notice_button").value="Notice +";
+       }
+       else
+       {
+         document.getElementById("notice").style.display = "block";
+         document.getElementById("notice_button").value="Notice -";
+       }
+  }
+
+</script>
+
+
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+<h1>Admin Profile</h1>
+Welcome! <%=h  @admin.name %> is logged in.<br/>
+Details:<br/>
+Login:<%=h  @admin.userlogin.login %><br/>
+
+<input type='button' onClick='addNotice()' id='notice_button' value="Notice +"/>
+<div id="notice" style="display: none">
+<%=render :partial => 'noticesform' , :object => Notice.new %></div>
+<div class="notices" style="padding:10px; width:1200px; height:250px;">
+<div id="accordion">
+<% @notices.each do |notice|%>
+	<h3><a href="#"><%=h notice.title%></a></h3>
+	<div>
+	    <p>
+      <h4><%=h notice.sent_to%></h4>
+      <h5><%=h notice.content%></h5>
+       <% if notice.attachment%>
+          <%= link_to "Attachments","/attachments?filename="+notice.attachment %>
+      <%end%>
+      </p>
+	</div>
+
+<%end%>
+</div>
+

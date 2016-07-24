@@ -1,0 +1,38 @@
+<link type="text/css" href="/jquery-ui/css/start/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="/javascripts/jquery.js"></script>
+<script type="text/javascript" src="/jquery-ui/js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$("#accordion").accordion({
+			fillSpace: true,
+			header: "h3"
+		});
+	});
+	</script>
+</head>
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+<h1>Student Profile</h1>
+
+Welcome! <%=h  @student.name %> is logged in.<br/>
+Details:<br/>
+Login:<%=h  @student.userlogin.login %><br/>
+Email:<%=h  @student.email %>
+<div class="demo" style="padding:10px; width:1200px; height:250px;">
+<div id="accordion">
+<% @notices.each do |notice|%>
+	<h3><a href="#"><%=h notice.title%></a></h3>
+	<div>
+	    <p>
+      <h4><%=h notice.sent_to%></h4>
+      <h5><%=h notice.content%></h5>
+       <% if notice.attachment%>
+          <%= link_to "Attachments","/attachments?filename="+notice.attachment %>
+      <%end%>
+      </p>
+	</div>
+
+<%end%>
+</div>
+

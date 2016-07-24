@@ -1,0 +1,659 @@
+<script type="text/javascript">
+jQuery(function($){
+	    var $tabs = $("#tabs").tabs();
+
+         $tabs.bind('tabsshow', function(event, ui) {
+            var selected = $tabs.tabs('option', 'selected');
+	        if(selected == 2){
+	            adjustpackages();
+	        }
+         });
+	    //$tabs.data('disabled.tabs', [1, 2, 3, 4, 5]);
+
+	    $('#button1').click(
+	       function() {
+	          if(verifytab1()){
+                $("#tab1").css("border","")
+	            $tabs.tabs('enable', 1);
+                $tabs.tabs('select', 1);
+                return true;
+              }
+            }
+        );
+        $('#button2').click(function(){
+              if(verifytab2()){
+                $("#tab2").css("border","")
+                $tabs.tabs('enable', 2);
+                $tabs.tabs('select', 2);
+                adjustpackages();
+                return true;
+              }
+        });
+
+        $('#button3').click(function() {
+            if(verifytab3()){
+                $("#tab3").css("border","")
+                $tabs.tabs('enable', 3);
+                $tabs.tabs('select', 3);
+                return true;
+            }
+        });
+
+        $('#button4').click(function() {
+            if(verifytab4()){
+	     $("#tab4").css("border","")
+              $tabs.tabs('enable', 4);
+              $tabs.tabs('select', 4);
+              return true;
+            }
+        });
+        $('#button5').click(function() {
+            if(verifytab5()){
+	      $("#tab5").css("border","")
+              $tabs.tabs('enable', 5);
+              $tabs.tabs('select', 5);
+              return true;
+            }
+        });
+
+        $('#more_contacts').click(function() {
+            if(verifytab5()){
+              $tabs.tabs('enable', 5);
+              $tabs.tabs('select', 5);
+              return true;
+            }
+        });
+
+	$('.uncheckall').click(function(){
+        	$("." + this.id.substring(0, this.id.indexOf("_"))).attr("checked",false);
+        });
+
+        $('.checkall').click(function(){
+        	$("." + this.id.substring(0, this.id.indexOf("_"))).attr("checked",true);
+        });
+
+
+        function adjustpackages(){
+            $(".btechpackage").attr("disabled",!isprog("btech"));
+            $(".mtechpackage").attr("disabled",!isprog("mtech"));
+            $(".dualpackage").attr("disabled",!isprog("dual"));
+            $(".mbapackage").attr("disabled",!isprog("mba"));
+            $(".phdpackage").attr("disabled",!isprog("phd"));
+            $(".mdespackage").attr("disabled",!isprog("mdes"));
+            $(".mscipackage").attr("disabled",!isprog("msci"));
+            $(".msc2package").attr("disabled",!isprog("msc2"));
+        }
+
+        function isprog(prog){
+          return ($("."+prog+":checked").length > 0);
+        }
+
+        function addalerts(tabindex,alerts){
+            var add_icon= "<p><span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span><strong>Alert: </strong>";
+            var alert_msgs=$("#alert_msgs"+tabindex)[0];
+            var content="";
+            for(i=0;i<alerts.length;i++){
+                content=content + add_icon + alerts[i] + "</p>";
+            }
+            alert_msgs.innerHTML=content;
+            alert_msgs.style.display="block";
+        }
+
+        function removealerts(tabindex){
+            var alert_msgs=$("#alert_msgs"+tabindex)[0];
+            alert_msgs.innerHTML="";
+            alert_msgs.style.display="none";
+        }
+      function verifytab1(){
+         var elems = $("#job_profile textarea");
+         var isvalid=true;
+
+         for(i = 0; i < elems.length;i++ ) {
+            var elm = elems[i];
+             if(elm.value=="") {
+                elm.style.border="2px solid #cd0a0a";
+                isvalid=false;
+            }
+            else {
+                //elm.css("border","")
+		elm.style.border="";
+            }
+         }
+         if(!isvalid){
+             var alerts= new Array();
+             alerts[0]="Some * marked fields are not filled.";
+             addalerts(1,alerts);
+         }
+         else {
+            removealerts(1);
+         }
+         return isvalid;
+      }
+      function verifytab2(){
+	  var isvalid = $("div[id='eligibility'] :checked").length > 0;
+
+         if(!isvalid){
+             var alerts= new Array();
+             alerts[0]="You haven't selected any checkbox";
+             addalerts(2,alerts);
+         }
+         else {
+            removealerts(2);
+         }
+         return isvalid;
+      }
+
+      function verifytab3() {
+          adjustpackages();
+          var alldisabled = true;
+          var elems = $("#packages input");
+          var isvalid=true;
+          var alerts = new Array();
+          for(i = 1; i <= elems.length; ) {
+            var elm = elems[i-1];
+            if(elm.disabled){
+                i=i+3;
+                continue;
+            }
+            alldisabled=false;
+            if(elm.value=="") {
+                elm.style.border="2px solid #cd0a0a";
+                isvalid=false;
+            }
+            else {
+                elm.style.border="";
+            }
+            i++;
+            if(i%3 == 0) i++;
+          }
+          if(!isvalid){
+            alerts[0]="Package Information is not complete";
+          }
+          else if(alldisabled){
+            alerts[0]="You didn't select any discipline as eligible";
+          }
+          var bond_yes = $("#bond_yes")[0].checked;
+          if(bond_yes){
+            var x= $("#bond_details")[0];
+            if(x.value=="") {
+                alerts[alerts.length]="Bond details are not specified";
+                x.style.border="2px solid #cd0a0a";
+                isvalid=false;
+            }
+            else {
+                x.style.border="";
+            }
+          }
+          var medical = $("#medical_requirements")[0];
+          if(medical.value==""){
+                alerts[alerts.length]="Medical requirements are not specified";
+                medical.style.border="2px solid #cd0a0a";
+                isvalid=false;
+            }
+            else {
+                medical.style.border="";
+            }
+          if(!isvalid){
+            addalerts(3,alerts);
+          }
+          else {
+            removealerts(3);
+          }
+          return isvalid;
+     }
+     function verifytab4(){
+        var isvalid=true;
+         var alerts = new Array();
+         var resume=$("#shortlist_yes")[0].checked;
+         if(resume){
+            var resume_criteria=$("#resume_criteria")[0];
+            if(resume_criteria.value==""){
+                resume_criteria.style.border="2px solid #cd0a0a";
+                isvalid=false;
+            }
+            else {
+                resume_criteria.style.border="";
+            }
+         }
+         if(!isvalid){
+         	alerts[0]="Please specify criteria for shortlist on resumes";
+            addalerts(4,alerts);
+          }
+          else {
+            removealerts(4);
+          }
+         return isvalid;
+      }
+
+     function verifytab5(){
+	 var elems = $("#contact input[value!="+"]");
+         elems.css("border", "");
+         var elems = $("#contact input[value="+"]");
+         var isvalid=elems.length == 0;
+
+         if(!isvalid){
+	    elems.css("border", "2px solid #cd0a0a");
+            var alerts = new Array();
+            alerts[0]="Contact information is not complete";
+            addalerts(5,alerts);
+          }
+          else {
+            removealerts(5);
+          }
+          return isvalid;
+      }
+      function validateform(){
+        var isvalid=true;
+        var x = $("#tab1")[0];
+        if(!verifytab1()){
+           isvalid=false;
+           if(x.innerHTML.length < 25) {
+                x.style.color="#cd0a0a";
+                x.innerHTML="<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;#cd0a0a'></span>"+x.innerHTML;
+           }
+        }
+        else{
+            x.style.color="";
+           x.innerHTML=x.innerHTML.substring(85);
+        }
+
+
+        x = $("#tab2")[0];
+        if(!verifytab2()){
+           isvalid=false;
+           if(x.innerHTML.length < 25) {
+                x.style.color="#cd0a0a";
+                x.innerHTML="<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;#cd0a0a'></span>"+x.innerHTML;
+           }
+        }
+        else{
+            x.style.color="";
+           x.innerHTML=x.innerHTML.substring(85);
+        }
+
+
+        x = $("#tab3")[0];
+        if(!verifytab3()){
+           isvalid=false;
+           if(x.innerHTML.length < 25) {
+                x.style.color="#cd0a0a";
+                x.innerHTML="<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;#cd0a0a'></span>"+x.innerHTML;
+           }
+        }
+        else{
+            x.style.color="";
+           x.innerHTML=x.innerHTML.substring(85);
+        }
+
+        x = $("#tab4")[0];
+        if(!verifytab4()){
+           isvalid=false;
+           if(x.innerHTML.length < 25) {
+                x.style.color="#cd0a0a";
+                x.innerHTML="<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;#cd0a0a'></span>"+x.innerHTML;
+           }
+        }
+        else{
+            x.style.color="";
+           x.innerHTML=x.innerHTML.substring(85);
+        }
+
+
+        x = $("#tab5")[0];
+        if(!verifytab5()){
+           isvalid=false;
+           if(x.innerHTML.length < 25) {
+                x.style.color="#cd0a0a";
+                x.innerHTML="<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;#cd0a0a'></span>"+x.innerHTML;
+           }
+        }
+        else{
+            x.style.color="";
+           x.innerHTML=x.innerHTML.substring(85);
+        }
+
+        return isvalid;
+    }
+    $("#checkform").click(
+        function checkform(){
+/*
+            if(validateform()){
+                var formdata=$('#job_opening').serialize(true);
+                alert(formdata);
+                var filled_form=$("#filled_form");
+                filled_form.innerHTML=formdata;
+
+            }
+*/
+            return true;
+        }
+    );
+    $("#submitform").click(
+        function submitform(){
+                if(validateform()){
+                    document.forms[0].submit();
+               }
+                return true;
+        }
+    );
+
+}
+);
+
+</script>
+<style type="text/css">
+#elig_table a{
+    font-family:"Arial",Verdana,Sans-serif;
+    font-size:12px;
+    color:Coral;
+}
+</style>
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+<% if @opening %>
+  <div class="notice"><% @opening.errors.each do |attr,msg| %>
+    <h4 style="color:red"><%=h attr+" "+msg %></h4>
+    <% end %>
+  </div>
+<% end %>
+<% form_tag({ :controller=>"companies",  :action=>"create"}, :id=>"job_opening") do %>
+<br/><br/>
+<div id="tabs">
+	<ul>
+		<li><a id="tab1" href="#job_profile">Job Profile</a></li>
+		<li><a id="tab2" href="#eligibility">Eligibility</a></li>
+		<li><a id="tab3" href="#package">Remuneration (Package)</a></li>
+		<li><a id="tab4" href="#selection">Selection Process</a></li>
+		<li><a id="tab5" href="#contact">Contact Information</a></li>
+		<li><a id="tab6" href="#submission">Finalise Opening</a></li>
+	</ul>
+
+	<div id="job_profile" align="center">
+    <table width="50%" border="0" cellspacing="10">
+         <tr><td><font face="Arial"><h4>Please note :</h4></font></td></tr>
+         <tr>
+           <td><font face="Verdana" size="2">
+             <ul>
+                <li>Fields with * mark are compulsory.</li>
+              </ul>
+            </font></td>
+        <tr>
+    </table>
+    <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs1" align="left">
+    </div>
+	 <table width="50%" border="0" cellspacing="10" >
+     <tr>
+     <td width="6%"><strong>Nature of Business *</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><textarea name= "nature" id = "company_business" rows="2" cols="30" wrap="hard"></textarea></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Job Designation *</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><textarea name= "designation" id= "designation" rows="2" cols="30" wrap="hard"></textarea></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Job Description *</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><textarea name= "description" id= "designation" rows="2" cols="30" wrap="hard"></textarea></td>
+	 </tr>
+     </table>
+    <div align="right">
+      <input id="button1" type="button" value="Continue"/>
+    </div>
+	</div>
+
+	<div id="eligibility" align="center" class="eligibility">
+<table width="80%" border="0" cellspacing="5">
+         <tr><td><font face="Arial"><h4>Please note :</h4></font></td></tr>
+         <tr>
+           <td><font face="Verdana" size="2">
+             <ul>
+                <li>Please checkall atleast one field.</li>
+              </ul>
+            </font></td>
+        <tr>
+    </table>
+    <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs2" align="left">
+    </div>
+<table width="80%" border="0" cellspacing="5" style="text-align:center" id="elig_table">
+
+<tr><td><strong></strong></td><td><strong>B.Tech</strong></td><td><strong>Dual (BT+MT)</strong></td><td><strong>M.Tech</strong></td><td><strong>PhD</strong></td><td><strong>M.Sc.Int (5yr)</strong></td><td><strong>M.Sc (2yr)</strong></td><td><strong>MBA</strong></td><td><strong>M.Des</strong></td></tr>
+<tr><td></td><td><a class="checkall" href="#" id="btech_checkall">Check all</a><br/><a class="uncheckall" href="#" id="btech_uncheckall">Uncheck all</a></td>
+<td><a class="checkall" href="#" id="dual_checkall">Check all</a><br/><a class="uncheckall" href="#" id="dual_uncheckall">Uncheck all</a></td>
+<td><a class="checkall" href="#" id="mtech_checkall">Check all</a><br/><a class="uncheckall" href="#" id="mtech_uncheckall">Uncheck all</a></td>
+<td><a class="checkall" href="#" id="phd_checkall">Check all</a><br/><a class="uncheckall" href="#" id="phd_uncheckall">Uncheck all</a></td>
+<td><a class="checkall" href="#" id="msci_checkall">Check all</a><br/><a class="uncheckall" href="#" id="msci_uncheckall">Uncheck all</a></td>
+<td><a class="checkall" href="#" id="msc2_checkall">Check all</a><br/><a class="uncheckall" href="#" id="msc2_uncheckall">Uncheck all</a></td>
+<td><a class="checkall" href="#" id="mba_checkall">Check all</a><br/><a class="uncheckall" href="#" id="mba_uncheckall">Uncheck all</a></td>
+<td><a class="checkall" href="#" id="mdes_checkall">Check all</a><br/><a class="uncheckall" href="#" id="mdes_uncheckall">Uncheck all</a></td></tr>
+<tr><td style="text-align:left"><strong>Aerospace Engineering</strong></td><td><input type="checkbox" name="AE[]" class="btech" value="btech"></td><td><input type="checkbox" name="AE[]" class="dual" value="dual"></td><td><input type="checkbox" name="AE[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="AE[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Biological Sciences and Bioengineering</strong></td><td><input type="checkbox" class="btech" name="BSBE[]" value="btech"></td><td><input type="checkbox" name="BSBE[]" class="dual" value="dual"></td><td><input type="checkbox" name="BSBE[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="BSBE[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr></tr>
+<tr><td style="text-align:left"><strong>Chemical Engineering</strong></td><td><input type="checkbox" class="btech" name="CHE[]" value="btech"></td><td><input type="checkbox" name="CHE[]" class="dual" value="dual"></td><td><input type="checkbox" name="CHE[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="CHE[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Chemistry</strong></td><td></td><td></td><td></td><td><input type="checkbox" name="CHM[]" class="phd" value="phd"></td><td><input type="checkbox" name="CHM[]" class="msci" value="msci"></td><td><input type="checkbox" name="CHM[]" class="msc2" value="msc2"></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Civil Engineering</strong></td><td><input type="checkbox" class="btech" name="CE[]" value="btech"></td><td><input type="checkbox" name="CE[]" class="dual" value="dual"></td><td><input type="checkbox" name="CE[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="CE[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Computer Science and Engineering</strong></td><td><input type="checkbox" class="btech" name="CSE[]" value="btech"></td><td><input type="checkbox" name="CSE[]" class="dual" value="dual"></td><td><input type="checkbox" name="CSE[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="CSE[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Design Program</strong></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><input type="checkbox" class="mdes" name="DES[]" value="mdes"></td></tr>
+<tr><td style="text-align:left"><strong>Electrical Engineering</strong></td><td><input type="checkbox" class="btech" name="EE[]" value="btech"></td><td><input type="checkbox" name="EE[]" class="dual" value="dual"></td><td><input type="checkbox" name="EE[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="EE[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Environmental Engineering & Management</strong></td><td></td><td></td><td><input type="checkbox" name="EEM[]" class="mtech" value="mtech"></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Industrial & Management Engineering</strong></td><td></td><td></td><td><input type="checkbox" name="IME[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="IME[]" class="phd" value="phd"></td><td></td><td></td><td><input type="checkbox" name="IME[]" class="mba" value="mba"></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Laser Technology</strong></td><td></td><td></td><td><input type="checkbox" name="LT[]" class="mtech" value="mtech"></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Mechanical Engineering</strong></td><td><input type="checkbox" class="btech" name="ME[]" value="btech"></td><td><input type="checkbox" name="ME[]" class="dual" value="dual"></td><td><input type="checkbox" name="ME[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="ME[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Materials and Metallurgical Engineering</strong></td><td><input type="checkbox" class="btech" name="MME[]" value="btech"></td><td><input type="checkbox" name="MME[]" class="dual" value="dual"></td><td><input type="checkbox" name="MME[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="MME[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Materials Science</strong></td><td></td><td></td><td><input type="checkbox" name="MS[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="MS[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Mathematics and Scientific Computing</strong></td><td></td><td></td><td></td><td></td><td><input type="checkbox" name="MSC[]" class="msci" value="msci"></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Mathematics and Statistics</strong></td><td></td><td></td><td></td><td><input type="checkbox" name="MTH[]" class="phd" value="phd"></td><td></td><td><input type="checkbox" name="MTH[]" class="msc2" value="msc2"></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Nuclear Engineering and Technology</strong></td><td></td><td></td><td><input type="checkbox" name="NE[]" class="mtech" value="mtech"></td><td><input type="checkbox" name="NE[]" class="phd" value="phd"></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"><strong>Physics</strong></td><td></td><td></td><td></td><td><input type="checkbox" name="PHY[]" class="phd" value="phd"></td><td><input  type="checkbox" name="PHY[]" class="msci" value="msci"></td><td><input type="checkbox" name="PHY[]" class="msc2" value="msc2"></td><td></td><td></td></tr>
+</table>
+    <div align="right">
+      <input id="button2" type="button" value="Continue"/>
+    </div>
+
+	</div>
+
+
+	<div id="package" align="center">
+<table width="80%" border="0" cellspacing="10">
+     <tr><td><font face="Arial"><h4>Please note :</h4></font></td></tr>
+     <tr>
+       <td><font face="Verdana" size="2">
+         <ul>
+            <li>Please fill in all the fields relevant as per the eligibility criterion specified.</li>
+            <li>Performance based bonus should be declared independently and not as part of Gross/CTC.</li>
+            <li>Any amount to be disbursed later than the end of first 12 months should not be a part of Gross/CTC but can be mentioned separately.</li>
+          </ul>
+        </font></td>
+    <tr>
+</table>
+<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs3" align="left">
+</div>
+    <div id="packages">
+    <table width="80%" border="0" cellspacing="10">
+        <tr><td><strong></strong></td><td><strong>Gross Salary</strong></td><td><strong>Total cost to Company</strong></td><td><strong>Perks/Additional Information</strong></td></tr>
+	      <tr><td><strong>B.Tech</strong></td><td><input type="text" name="btech_gross" class="btechpackage"></td><td><input type="text"  class="btechpackage" name="btech_total"></td><td><input type="text" class="btechpackage" name="btech_perks"></td></tr>
+	      <tr><td><strong>Dual Degree</strong></td><td><input type="text" class="dualpackage" name="dual_gross"></td><td><input type="text" class="dualpackage" name="dual_total"></td><td><input type="text" class="dualpackage" name="dual_perks"></td></tr>
+	      <tr><td><strong>Int. M.Sc (5 yr)</strong></td><td><input type="text" class="mscipackage" name="msci_gross"></td><td><input type="text" class="mscipackage"  name="msci_total"></td><td><input type="text"  class="mscipackage"  name="msci_perks"></td></tr>
+	      <tr><td><strong>M.Tech</strong></td><td><input type="text"  class="mtechpackage"  name="mtech_gross"></td><td><input type="text"  class="mtechpackage" name="mtech_total"></td><td><input type="text"  class="mtechpackage" name="mtech_perks"></td></tr>
+	      <tr><td><strong>M.Sc (2 yr)</strong></td><td><input type="text"   class="msc2package" name="msc2_gross"></td><td><input type="text" class="msc2package" name="msc2_total"></td><td><input type="text" class="msc2package" name="msc2_perks"></td></tr>
+	      <tr><td><strong>MBA</strong></td><td><input type="text" class="mbapackage" name="mba_gross"></td><td><input type="text" class="mbapackage" name="mba_total"></td><td><input type="text" class="mbapackage" name="mba_perks"></td></tr>
+	      <tr><td><strong>PhD</strong></td><td><input type="text" class="phdpackage" name="phd_gross"></td><td><input type="text" class="phdpackage" name="phd_total"></td><td><input type="text" class="phdpackage" name="phd_perks"></td></tr>
+	      <tr><td><strong>M.Des</strong></td><td><input type="text" class="mdespackage" name="mdes_gross"></td><td><input type="text" class="mdespackage" name="mdes_total"></td><td><input type="text" class="mdespackage" name="mdes_perks"></td></tr>
+    </table>
+    </div>
+	 <table width="80%" style="table-layout:fixed;" border="0" cellspacing="10">
+	  <tr><td><strong>Package Details (If any )</strong></td><td><textarea name= "package_details" id= "package_details" rows="3" cols="30" wrap="hard"></textarea></td></tr>
+     <tr>
+	 <td><strong>Is there a service bond/contract?</strong></td>
+     <td>
+      <input type="radio" name="bond" id="bond_yes" value="yes" checked><label for="_yes"> YES </label>&nbsp;&nbsp;
+      <input type="radio" name="bond" id="bond_no" value="no"><label for=""> NO </label>
+    </td>
+	 </tr>
+     <tr>
+     <td><strong>If yes, what will be the duration, amount and stipulated conditions?</strong></td>
+     <td><textarea name= "bond_details" id= "bond_details" rows="3" cols="30" wrap="hard"></textarea></td>
+	 </tr>
+	  <tr>
+	      <td><strong>Medical Requirements</strong></td>
+        <td><textarea name = "medical_requirements" id = "medical_requirements" rows="3" cols="30" wrap="hard"></textarea></td>
+    </tr>
+	</table>
+	<div align="right">
+      <input id="button3" type="button" value="Continue"/>
+  </div>
+	</div>
+
+
+
+	<div id="selection" align="center">
+	<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs4" align="left">
+    </div>
+  <table width="50%" border="0" cellspacing="10">
+  <tr>
+	 <td width="6%"><strong>Shortlist from Resumes</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="resume_shortlist" id="shortlist_yes" value="yes" checked><label for="shortlist_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <input type="radio" name="resume_shortlist" id="shortlist_no" value="no"><label for="shortlist_no"> NO </label></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>If Yes, Specify Criteria</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="resume_criteria" id="resume_criteria"></td>
+	 </tr>
+	 <tr>
+	 <td width="6%"><strong>Aptitude Test</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="aptitude" id="aptitude_yes" value="yes" checked><label for="aptitude_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="aptitude" id="aptitude_no" value="no"><label for="aptitude_no"> NO </label></td>
+	 </tr>
+	 <tr>
+	 <td width="6%"><strong>Technical Test</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="tech_test" id="tech_test_yes" value="yes" checked><label for="tech_test_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <input type="radio" name="tech_test" id="tech_test_no" value="no"><label for="tech_test_no"> NO </label></td>
+	 </tr>
+	 <tr>
+	 <td width="6%"><strong>Group Discussion</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="gd" id="gd_yes" value="yes" checked><label for="gd_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="radio" name="gd" id="gd_no" value="no"><label for="gd_no"> NO </label></td>
+	 </tr>
+	 <tr>
+	 <td width="6%"><strong>Technical Interview</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="tech_interview" id="tech_interview_yes" value="yes" checked><label for="tech_interview_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="tech_interview" id="tech_interview_no" value="no"><label for="tech_interview_no"> NO </label></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Number of Rounds</strong></td>
+     <td width="2%"><strong>:</strong></td>
+<td width="5%">
+<select name="no_rounds">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+</select>
+</td>
+	 </tr>
+	 <tr>
+	 <td width="6%"><strong>HR Interview</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="hr_interview" id="hr_interview_yes" value="yes" checked><label for="hr_interview_yes"> YES </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="hr_interview" id="hr_interview_no" value="no"><label for="hr_interview_no"> NO </label></td>
+	 </tr>
+	</table>
+	<div align="right">
+      <input id="button4" type="button" value="Continue"/>
+    </div>
+	</div>
+
+
+	<div id="contact" align="center">
+	<table width="50%" border="0" cellspacing="10">
+     <tr><td><font face="Arial"><h4>Please note :</h4></font></td></tr>
+     <tr>
+       <td><font face="Verdana" size="2">
+         <ul>
+            <li>Please fill in all the fields below.</li>
+          </ul>
+        </font></td>
+    <tr>
+</table>
+<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;display:none;width:50%" id="alert_msgs5" align="left">
+</div>
+<div id="contact_details">
+	<table width="50%" border="0" cellspacing="10">
+     <tr>
+     <td width="6%"><strong>Contact Person</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="contact_name" id="person"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Designation</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="contact_designation" id="design"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Address</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="contact_address" id="address"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>PIN</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="pin" id="pin"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Telephone No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="contact_telephone" id="tel"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>FAX No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="contact_fax" id="fax"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Cell No</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="contact_mobile" id="cell"></td>
+	 </tr>
+	 <tr>
+     <td width="6%"><strong>Email</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="text" name="contact_email" id="email"></td>
+	 </tr>
+	 <tr><td width="6%"><strong>Internship</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="5%"><input type="radio" name="intern" id="intern_yes" value="yes" checked><label for="intern_yes"> YES </label>&nbsp;&nbsp;
+     <input type="radio" name="intern" id="intern_no" value="no"><label for="intern_no"> NO </label></td>
+	 </tr>
+</table>
+</div>
+    <div align="center">
+      <input id="more_contacts" type="button" value="Add More Contacts"/>
+    </div>
+    <div align="right">
+      <input id="button5" type="button" value="Continue"/>
+    </div>
+</div>
+
+	<div id="submission">
+    <div id="filled_form">
+	</div>
+	  <input type="button" id="checkform" value="Please checkall Once again!"/>
+	  <input type="button" id="submitform"  value="Submit"/>
+
+</div>
+
+<% end %>
+

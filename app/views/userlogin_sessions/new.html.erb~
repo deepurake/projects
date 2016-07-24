@@ -1,0 +1,25 @@
+
+<%# error_messages_for :user_session, :header_message => "Please Try Again!", :message => "We had some problems starting the game:" %>
+<div id='login'>
+<h3>PAS Login</h3>
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
+<% form_for(@login_session) do |f| %>
+    <table>
+      <tr>
+        <td> <b>Login:</b> </td>
+        <td> <%= f.text_field :login, :size => 20 ,:class => 'textfield' %> </td>
+      </tr>
+      <tr>
+        <td> <b>Password:</b> </td>
+        <td> <%= f.password_field :password, :size => 20 ,:class => 'textfield'%> </td>
+      </tr>
+    </table>
+		<input type='hidden' value='1' name='test[]'> 
+		<input type='hidden' value='2' name='test[]'> 
+		<input type='hidden' value='3' name='test[]'> 
+  <p><input type='submit' value='Login'></p>
+<% end %>
+</div>
+

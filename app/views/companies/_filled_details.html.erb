@@ -1,0 +1,183 @@
+<div id="filled_data_must">
+  <h2 style="text-align:center;">IIT Kanpur: SPO</h2>
+<table border="0" cellspacing="10" width="90%" >
+     <tr><td colspan="3"><h4>Job Profile</h4></td></tr>
+     <tr>
+     <td width="10%"><strong>Name of the Company</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="12%"><%=h @user.name %></td>
+	 </tr>
+     <tr>
+     <td width="10%"><strong>Nature of Business</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="15%" id="val_opening[nature]"></td>
+	 </tr>
+	 <tr>
+     <td width="10%"><strong>Job Designation</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="15%" id="val_opening[designation]"></td>
+	 </tr>
+	 <tr>
+     <td width="10%"><strong>Job Description</strong></td>
+     <td width="2%"><strong>:</strong></td>
+	 <td width="15%" id="val_opening[description]"></td>
+	 </tr>
+     <tr><td colspan="3"><h4>Eligibility</h4></td></tr>
+     <td width="10%"><strong>Eligibilible Departments and Programs</strong></td>
+     <td width="2%"><strong>:</strong></td>
+     <td width="12%"><div id="val_eligibility"></div></td>
+     <tr><td colspan="3"><h4>Remuneration (Package)</h4></td></tr>
+     <!--td width="6%"><strong>Packages</strong></td>
+     <td width="2%"><strong>:</strong></td>
+     <td width="12%"><div id="val_opening[packages"></div></td-->
+     <tr><td colspan="3"><div id="val_packages"></div></td></tr>
+     <tr><td width="10%"><strong>Package Details (If any )</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[package_details]"></td></tr>
+     <tr><td width="10%"><strong>Package Details Attachment</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_packages_attachment" class="attachments"></td></tr>
+     <tr><td width="10%"><strong>Is there a service bond/contract?</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[bond]" class="boolean"></td></tr>
+     <tr><td width="10%"><strong>If yes, what will be the duration, amount and stipulated conditions?</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[bond_details]"></td></tr>
+     <tr><td width="10%"><strong>Medical Requirements</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[medical_requirements]"></td></tr>
+     <tr><td colspan="3"><h4>Selection Process</h4></td></tr>
+     <tr><td width="10%"><strong>Shortlist from Resumes</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[resume_shortlist]" class="boolean"></td></tr>
+     <tr><td width="10%"><strong>If Yes, Specify Criteria</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[resume_criteria]"></td></tr>
+     <tr><td width="10%"><strong>Aptitude Test</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[aptitude]" class="boolean"></td></tr>
+     <tr><td width="10%"><strong>Technical Test</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[tech_test]" class="boolean"></td></tr>
+     <tr><td width="10%"><strong>Group Discussion</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[gd]" class="boolean"></td></tr>
+     <tr><td width="10%"><strong>Technical Interview</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[tech_interview]" class="boolean"></td></tr>
+     <tr><td width="10%"><strong>Number of Rounds</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[no_rounds]"></td></tr>
+     <tr><td width="10%"><strong>HR Interview</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_opening[hr_interview]" class="boolean"></td></tr>
+     <tr><td width="10%"><strong>Job application form</strong></td><td width="2%"><strong>:</strong></td><td width="15%" id="val_application_form" class="attachments"></td></tr>
+     <tr><td colspan="3"><h4>Contact Information</h4></td></tr>
+     <tr>
+     <td width="10%"><strong>Contact Person</strong></td>
+     <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details1][name]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Designation</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details1][designation]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Address</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details1][address]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>PIN</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details1][pin]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Telephone No</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details1][telephone]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>FAX No</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details1][fax]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Cell No</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details1][mobile]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Email</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details1][email]"></td>
+       </tr>
+  </table>
+  </div>
+   <div id="filled_contact_details2" style="display:none">
+     <table border="0" cellspacing="10" >
+       <tr><td colspan="3"><h4>More Contacts</h4></td></tr>
+       <tr>
+       <td width="10%"><strong>Contact Person</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details2][name]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Designation</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details2][designation]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Address</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details2][address]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>PIN</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details2][pin]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Telephone No</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details2][telephone]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>FAX No</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details2][fax]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Cell No</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details2][mobile]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Email</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details2][email]"></td>
+       </tr>
+  </table>
+  </div>
+   <div id="filled_contact_details3"  style="display:none">
+     <table border="0" cellspacing="10" >
+       <tr><td colspan="3"><h4>More Contacts</h4></td></tr>
+       <tr>
+       <td width="10%"><strong>Contact Person</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details3][name]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Designation</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details3][designation]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Address</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details3][address]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>PIN</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details3][pin]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Telephone No</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details3][telephone]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>FAX No</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details3][fax]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Cell No</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details3][mobile]"></td>
+       </tr>
+       <tr>
+       <td width="10%"><strong>Email</strong></td>
+       <td width="2%"><strong>:</strong></td>
+       <td width="15%" id="val_opening[contact_details3][email]"></td>
+       </tr>
+</table>
+</div>
+
+
